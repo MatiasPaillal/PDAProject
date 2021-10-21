@@ -5,7 +5,6 @@
  */
 package com.example.demo.Admin.Commons;
 
-import com.example.demo.Admin.Commons.ServicioGen;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

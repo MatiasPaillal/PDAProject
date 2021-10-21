@@ -14,6 +14,6 @@ import org.springframework.stereotype.Service;
  * @author matias
  */
 @Service
-public interface ServicioAdmin extends ServicioGen<Administrador, Integer>{
+public interface ServicioAdmin extends ServicioGen<Administrador, String>{
     
 }

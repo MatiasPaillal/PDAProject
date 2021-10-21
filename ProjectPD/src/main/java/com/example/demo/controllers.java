@@ -117,23 +117,22 @@ public class controllers {
 
    
     */
-    
-    
-    
-     @RequestMapping(value="consultaAdmin" , method = RequestMethod.POST)
-    public String Cliente_Categorias( String usuario, String password,Model modelo) {
+    @RequestMapping(value = "consultaAdmin", method = RequestMethod.POST)
+    public String Cliente_Categorias(String usuario, String password, Model modelo) {
         modelo.addAttribute("lista", servicioAdmin.getAll());
-        
-        ArrayList<Administrador> admins = (ArrayList<Administrador>) servicioAdmin.getAll();
-         
-        for(int i=0;i <admins.size();i++){             
-        if (admins.get(i).getUsuario().equals(usuario)&& admins.get(i).getPassword().equals(password)){
-            return "Admin_Opciones";
+
+        Administrador admins = (Administrador) servicioAdmin.obtener(usuario);
+
+        try {
+            if (admins.getUsuario().equals(usuario) && admins.getPassword().equals(password)) {
+                return "Admin_Opciones";
+            }
+        } catch (NullPointerException e) {
         }
-        }          
+
         return "IngresarAdmin";
-    }  
-    
+    }
+
     
      
     

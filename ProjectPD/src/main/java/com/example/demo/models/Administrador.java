@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Administrador {
     
     @Id 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+   
   @Column(length = 15)
  
     private String usuario;

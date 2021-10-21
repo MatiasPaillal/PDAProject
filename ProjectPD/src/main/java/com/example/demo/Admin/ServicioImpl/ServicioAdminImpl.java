@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
  * @author matias
  */
 @Service
-public class ServicioAdminImpl extends servicioGenImpl<Administrador, Integer> implements ServicioAdmin{
+public class ServicioAdminImpl extends servicioGenImpl<Administrador, String> implements ServicioAdmin{
     
     @Autowired
     private InterfazAdmin interfazAdmin;
     
     @Autowired
-    public CrudRepository<Administrador,Integer> obtener(){
+    public CrudRepository<Administrador,String> obtener(){
     
     return interfazAdmin;
     }
