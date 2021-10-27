@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Admin.servicios.ServicioAdmin;
 import com.example.demo.Admin.servicios.ServicioCategoria;
 import com.example.demo.Admin.servicios.ServicioProducto;
+import com.example.demo.Admin.servicios.ServicioCarro;
 import com.example.demo.Boleta;
 import com.example.demo.Carro;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,8 @@ public class controllers {
     private ServicioProducto servicioProducto;
     @Autowired
     private ServicioCategoria servicioCategoria;
+    @Autowired
+    private ServicioCarro servicioCarro;
 
     
     Boleta boleta = new Boleta("a", "a", "a", "a", "a", "a", "a");
@@ -262,7 +265,7 @@ public class controllers {
       @RequestMapping(value = "generarBoleta", method = RequestMethod.POST)
     public String generarBoleta(Model modelo) {
     
-            modelo.addAttribute("listaP", CarroModel.getAll());
+            modelo.addAttribute("listaP", servicioCarro.getAll());
       
         return "Cliente_Boleta";
              
@@ -276,6 +279,7 @@ public class controllers {
         
         
        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+       
        CarroModel carro= new CarroModel(producto,Integer.parseInt(cantidad));
        
        servicioCarro.guardar(carro);
