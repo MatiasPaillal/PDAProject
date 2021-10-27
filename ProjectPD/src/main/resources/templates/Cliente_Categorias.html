@@ -33,12 +33,11 @@ and open the template in the editor.
                             </button>
 
                     </form>
-                    <button class="btn ms-1">
-                            <a class="btn btn-outline-info" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                                <img src="../imagenes/Icon metro-cart.png" width="25" style="filter: invert(1.5)"/>
-                                Carrito
-                            </a>
-                        </button>
+
+                    <a class="btn ms-1 btn-outline-info" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <img src="../imagenes/Icon metro-cart.png" width="25" style="filter: invert(1.5)" /> Carrito
+                    </a>
+
                 </div>
             </nav>
         </div>
@@ -68,16 +67,19 @@ and open the template in the editor.
         </div>
 
 
-        <div class="offcanvas offcanvas-end mt-6" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-end mt-6" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
             <div class="offcanvas-header">
                 <img src="../imagenes/Icon metro-cart.png" width="25" />
                 <h5 class="offcanvas-title" id="offcanvasTitulo">Carrito</h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
+
             <div class="offcanvas-body">
-                <div>
-                    <!--Contenido del Carrito (Productos)-->
-                    <div class="card p-2 " style="max-width: 540px;">
+
+                <div id="carro-compras">
+                    <!--Contenido del Carrito (Producto)-->
+                    <div class="card p-2 row mb-4" style="max-width: 540px;">
 
                         <div class="row g-0">
 
@@ -116,11 +118,17 @@ and open the template in the editor.
                             </div>
 
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p " crossorigin="anonymous "></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
 </body>
