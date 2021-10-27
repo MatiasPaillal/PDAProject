@@ -1,76 +1,80 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <style>
-            .buttonLogearAdmin {
-                background-color: #ffffff;
-                border: none;
-                color: black;
-                padding: 15px 30px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                text-align: center;
 
 
-            }
-            .buttonIngresarCliente {
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-                border: none;
-                color: white;
-                padding: 15px 30px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                text-align: center;
+<head>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            }
-            a.button {
-                -webkit-appearance: button;
-                -moz-appearance: button;
-                appearance: button;
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                text-decoration: none;
-                color: initial;
-                text-align: center;
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-            }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style>
+        .container ::-webkit-scrollbar {
+            width: 7px;
+        }
+        
+        .container ::-webkit-scrollbar-thumb {
+            background: rgb(6, 150, 160);
+            border-radius: 5px;
+        }
+    </style>
 
 
-        </style>
-
-        <title>Bienvenido </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+</head>
     <body background="../imagenes/Fondo.jpg">
         <div style="float: right; margin: 25px;  ">
-
-
-            <a href="/Admin" class="buttonLogearAdmin">Ingresar como administrador</a>
-
-            <a href="#" title="Administrador" style="float: left; margin-right: 10px" >
-                <img src="../imagenes/Icon awesome-user-lock.png" alt="" width="60"/>
-            </a>
+ 
+            <a>
+                <button  type="" class="boton btn btn-light" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Ingresar como administrador <img src="../imagenes/Icon awesome-user-lock.png" alt="" width="60"></button>
+              </a>
 
         </div>
+        <br><br><br><br>
         <br><br><br><br><h1 align="center" style="font-size: 80px; color: white;">Bienvenido(a)</h1><br>
         <h2 align="center" style="font-size: 30px; color: white"><i>Para armar su carrito</i></h2>
         <h2 align="center" style="font-size: 30px; color: white;"><i>Presione para continuar</i></h2>
 
         <div align="center"><a href="/Cliente_Categorias" class="button" ><i>Ir a Categorias</i></a></div>
+     
+        
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ingresar como administrador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+
+                    <form  method="POST" action="consultaAdmin">
+                        <div class="form-group">
+                            <label for="contraseña" class="col-form-label">Nombre de usuario:</label>
+                            <input type="text" class="form-control" name="usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label">Contraseña:</label>
+                            <input type="text" class="form-control"   name="password">
+                        </div>
+                         
+                        <div class="modal-footer">
+
+                            <input type="submit" value="Ingresar" class="btn btn-primary" style="margin-left: 15px">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     </body>
 </html>

@@ -132,20 +132,21 @@ public class controllers {
      */
     @RequestMapping(value = "consultaAdmin", method = RequestMethod.POST)
     public String admin_Opciones(String usuario, String password, Model modelo) {
-        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
-        modelo.addAttribute("lista", servicioProducto.getAll());
-        modelo.addAttribute("listaC", servicioCategoria.getAll());
 
         Administrador admins = (Administrador) servicioAdmin.obtener(usuario);
 
         try {
             if (admins.getPassword().equals(password)) {
+
+                modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
+                modelo.addAttribute("lista", servicioProducto.getAll());
+                modelo.addAttribute("listaC", servicioCategoria.getAll());
                 return "Admin_Opciones";
             }
         } catch (NullPointerException e) {
         }
 
-        return "IngresarAdmin";
+        return "Ingresar";
     }
 
     @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
@@ -269,9 +270,9 @@ public class controllers {
 
     @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
     public String agregarProductoCarro(String id, int cantidad, Model modelo) {
-        
+
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-        
+
         try {
             ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
             productos.add(producto);
