@@ -40,6 +40,7 @@ public class controllers {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
+    private int total= 12;
 
     Boleta boleta = new Boleta("a", "a", "a", "a", "a", "a", "a");
 
@@ -48,11 +49,24 @@ public class controllers {
 
         return "Ingresar";
     }
+    public ArrayList <Integer> generarTotal(){
+        Integer total=0;
+        ArrayList<CarroModel> carros = (ArrayList <CarroModel>) servicioCarro.getAll();
+       for(CarroModel carro:carros){
+       total+=carro.getIdProductoCarro().getPrecio()*carro.getCantidad();
+       }
+        ArrayList<Integer> totales= new ArrayList<Integer>();
+        totales.add(total);
+        return totales;
+    
+    }
 
     @GetMapping("/Cliente_Categorias")
     String Cliente_Categorias(Model modelo) {
+        
         modelo.addAttribute("listaC", servicioCategoria.getAll());
         modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
 
         return "Cliente_Categorias";
     }
@@ -192,6 +206,18 @@ public class controllers {
         }
         return "redirect:/opciones";
     }
+    
+    
+    @GetMapping(value = "/eliminarDelCarro/{id}")
+    public String eliminarDelCarro(@PathVariable String id, Model modelo) {
+
+        try {
+            servicioCarro.eliminar(Long.parseLong(id));
+        } catch (NumberFormatException e) {
+        }
+        return "redirect:/Cliente_Categorias";
+    }
+    
 
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
     public String actualizarProducto(String id, String url, String nombre, String precio, String categoria, Model modelo) {
@@ -297,7 +323,7 @@ public class controllers {
     public String mostrarProducto(@PathVariable String id, Model modelo) {
 
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-        System.out.println("AQUIIIII: " + id);
+         
         try {
             ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
             productos.add(producto);
