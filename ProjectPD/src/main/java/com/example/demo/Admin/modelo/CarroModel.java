@@ -1,3 +1,4 @@
+ 
 package com.example.demo.Admin.modelo;
 
 import javax.persistence.*;
@@ -41,4 +42,5 @@ public class CarroModel {
         this.cantidad = cantidad;
     }
 
+ 
 }

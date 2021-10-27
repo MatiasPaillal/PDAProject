@@ -5,6 +5,7 @@ package com.example.demo;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.example.demo.Admin.modelo.CarroModel;
 import com.example.demo.Admin.modelo.Administrador;
 import com.example.demo.Admin.modelo.CategoriaModel;
 import com.example.demo.Admin.modelo.ProductoModel;
@@ -37,6 +38,7 @@ public class controllers {
     @Autowired
     private ServicioCategoria servicioCategoria;
 
+    
     Boleta boleta = new Boleta("a", "a", "a", "a", "a", "a", "a");
 
     @GetMapping("/")
@@ -234,8 +236,56 @@ public class controllers {
        }
          
     }
-
+/*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
+    public String mostrarProductoCategoria(String nombre, Model modelo) {
+        
+      ArrayList <ProductoModel> productos= (ArrayList <ProductoModel>) servicioProducto.getAll();
+      
+      for(int i=0; i<productos.size();i++){
+      if(nombre==0)
+      
+      
+      }
+             
+       if(producto != null){
+       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
+       productos.add(producto); 
+        modelo.addAttribute("listaP", productos);
+        return "/Cliente_ProductoSeleccionado";
+       }else{
+           modelo.addAttribute("listaP", servicioProducto.getAll());
+        return "Cliente_Productos";
+       }
+         
+    }*/
    
+      @RequestMapping(value = "generarBoleta", method = RequestMethod.POST)
+    public String generarBoleta(Model modelo) {
+    
+            modelo.addAttribute("listaP", CarroModel.getAll());
+      
+        return "Cliente_Boleta";
+             
+      
+         
+    }
+    
+    
+      @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
+    public String agregarProductoCarro(String id, String cantidad,Model modelo) {
+        
+        
+       ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+       CarroModel carro= new CarroModel(producto,Integer.parseInt(cantidad));
+       
+       servicioCarro.guardar(carro);
+       
+      
+     return "Cliente_ProductoSeleccionado";    
+    }
+    
+    
+    
     
      @GetMapping(value = "/mostrarProducto/{id}")
     public String mostrarProducto(@PathVariable String id, Model modelo) {
