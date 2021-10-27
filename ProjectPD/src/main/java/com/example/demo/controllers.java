@@ -41,7 +41,6 @@ public class controllers {
     @Autowired
     private ServicioCarro servicioCarro;
 
-    
     Boleta boleta = new Boleta("a", "a", "a", "a", "a", "a", "a");
 
     @GetMapping("/")
@@ -53,10 +52,9 @@ public class controllers {
     @GetMapping("/Cliente_Categorias")
     String Cliente_Categorias(Model modelo) {
         modelo.addAttribute("listaC", servicioCategoria.getAll());
-        
+
         return "Cliente_Categorias";
     }
-     
 
     @GetMapping("/Ejemplo")
     String ej() {
@@ -149,22 +147,23 @@ public class controllers {
 
         return "IngresarAdmin";
     }
+
     @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
     public String consultaProductos(String codigo, Model modelo) {
         ProductoModel producto = servicioProducto.obtener(Long.parseLong(codigo));
-       modelo.addAttribute("listaAdmin", servicioAdmin.getAll()); 
-       modelo.addAttribute("listaC", servicioCategoria.getAll());
-       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
-       productos.add(producto);
-       
-       if(productos != null){ 
-        modelo.addAttribute("lista", productos);
-        return "Admin_Opciones";
-       }else{
-         modelo.addAttribute("lista", servicioProducto.getAll());
-        return "Admin_Opciones";
-       }
-         
+        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
+        modelo.addAttribute("listaC", servicioCategoria.getAll());
+        ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+        productos.add(producto);
+
+        if (productos != null) {
+            modelo.addAttribute("lista", productos);
+            return "Admin_Opciones";
+        } else {
+            modelo.addAttribute("lista", servicioProducto.getAll());
+            return "Admin_Opciones";
+        }
+
     }
 
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
@@ -186,18 +185,16 @@ public class controllers {
 
         try {
             servicioProducto.eliminar(Long.parseLong(id));
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
         }
         return "redirect:/opciones";
     }
-    
-    
-       @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
-    public String actualizarProducto(String id,String url, String nombre, String precio, String categoria, Model modelo) {
+
+    @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
+    public String actualizarProducto(String id, String url, String nombre, String precio, String categoria, Model modelo) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
 
-        ProductoModel producto = new ProductoModel(Long.parseLong(id),nombre, Integer.parseInt(precio), categoriaProducto, url);
+        ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, Integer.parseInt(precio), categoriaProducto, url);
 
         servicioProducto.guardar(producto);
         modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
@@ -206,40 +203,40 @@ public class controllers {
 
         return "redirect:opciones";
     }
-    
-        @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
+
+    @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
     public String actualizarProducto(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-      
-             
-       if(producto != null){
-       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
-       productos.add(producto); 
-        modelo.addAttribute("listaP", productos);
-        return "/Cliente_ProductoSeleccionado";
-       }else{
-           modelo.addAttribute("listaC", servicioCategoria.getAll());
-          return "Cliente_Categorias";
-       }
-         
+
+        if (producto != null) {
+            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+            productos.add(producto);
+            modelo.addAttribute("listaP", productos);
+            return "/Cliente_ProductoSeleccionado";
+        } else {
+            modelo.addAttribute("listaC", servicioCategoria.getAll());
+            return "Cliente_Categorias";
+        }
+
     }
-         @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
+
+    @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
     public String mostrarProductoCategoria(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-      
-             
-       if(producto != null){
-       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
-       productos.add(producto); 
-        modelo.addAttribute("listaP", productos);
-        return "/Cliente_ProductoSeleccionado";
-       }else{
-           modelo.addAttribute("listaP", servicioProducto.getAll());
-        return "Cliente_Productos";
-       }
-         
+
+        if (producto != null) {
+            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+            productos.add(producto);
+            modelo.addAttribute("listaP", productos);
+            return "/Cliente_ProductoSeleccionado";
+        } else {
+            modelo.addAttribute("listaP", servicioProducto.getAll());
+            return "Cliente_Productos";
+        }
+
     }
-/*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
+
+    /*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
     public String mostrarProductoCategoria(String nombre, Model modelo) {
         
       ArrayList <ProductoModel> productos= (ArrayList <ProductoModel>) servicioProducto.getAll();
@@ -261,47 +258,44 @@ public class controllers {
        }
          
     }*/
-   
-      @RequestMapping(value = "generarBoleta", method = RequestMethod.POST)
+    @RequestMapping(value = "generarBoleta", method = RequestMethod.POST)
     public String generarBoleta(Model modelo) {
-    
-            modelo.addAttribute("listaP", servicioCarro.getAll());
-      
+
+        modelo.addAttribute("listaP", servicioCarro.getAll());
+
         return "Cliente_Boleta";
-             
-      
-         
+
     }
-    
-    
-      @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
-    public String agregarProductoCarro(String id, String cantidad,Model modelo) {
+
+    @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
+    public String agregarProductoCarro(String id, int cantidad, Model modelo) {
         
+        ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
         
-       ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-       
-       CarroModel carro= new CarroModel(producto,Integer.parseInt(cantidad));
-       
-       servicioCarro.guardar(carro);
-       
-      
-     return "Cliente_ProductoSeleccionado";    
-    }
-    
-    
-    
-    
-     @GetMapping(value = "/mostrarProducto/{id}")
-    public String mostrarProducto(@PathVariable String id, Model modelo) {
-        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-             
-        
-        ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
-       productos.add(producto);
         try {
+            ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+            productos.add(producto);
+            CarroModel carro = new CarroModel(producto, (Integer) cantidad);
+            servicioCarro.guardar(carro);
             modelo.addAttribute("listaP", productos);
+        } catch (NumberFormatException e) {
+
         }
-        catch(NumberFormatException e){
+
+        return "/Cliente_ProductoSeleccionado";
+    }
+
+    @GetMapping(value = "/mostrarProducto/{id}")
+    public String mostrarProducto(@PathVariable String id, Model modelo) {
+
+        ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+        System.out.println("AQUIIIII: " + id);
+        try {
+            ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+            productos.add(producto);
+            modelo.addAttribute("listaP", productos);
+        } catch (NumberFormatException e) {
+            modelo.addAttribute("listaP", productos);
         }
         return "/Cliente_ProductoSeleccionado";
     }

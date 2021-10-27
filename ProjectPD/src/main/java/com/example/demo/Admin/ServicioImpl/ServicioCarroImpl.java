@@ -7,7 +7,9 @@ import com.example.demo.Admin.servicios.ServicioCarro;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServicioCarroImpl extends servicioGenImpl<CarroModel, Long> implements ServicioCarro{
     
     @Autowired
