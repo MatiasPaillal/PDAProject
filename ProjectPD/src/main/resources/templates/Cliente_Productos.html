@@ -188,7 +188,7 @@ and open the template in the editor.
 
                         <label for="totalCarro" class="col-auto col-form-label display-1">Total</label>
                         <div class="col">
-                            <input id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
+                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}"   id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                         </div>
 
                     </div>

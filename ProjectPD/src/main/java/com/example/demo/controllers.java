@@ -80,6 +80,7 @@ public class controllers {
     String Cliente_Productos(Model modelo) {
         modelo.addAttribute("listaP", servicioProducto.getAll());
         modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
         return "Cliente_Productos";
     }
 
@@ -242,10 +243,12 @@ public class controllers {
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
             return "/Cliente_ProductoSeleccionado";
         } else {
             modelo.addAttribute("listaC", servicioCategoria.getAll());
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
             return "Cliente_Categorias";
         }
 
@@ -260,10 +263,12 @@ public class controllers {
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
             return "/Cliente_ProductoSeleccionado";
         } else {
             modelo.addAttribute("listaP", servicioProducto.getAll());
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
             return "Cliente_Productos";
         }
 
@@ -329,9 +334,11 @@ public class controllers {
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
         } catch (NumberFormatException e) {
             modelo.addAttribute("listaP", productos);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
         }
         return "/Cliente_ProductoSeleccionado";
     }
