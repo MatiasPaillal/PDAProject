@@ -18,6 +18,12 @@ public class CarroModel {
     @Column(nullable = false)
     private Integer cantidad;
 
+    public CarroModel(ProductoModel idProductoCarro, Integer cantidad) {
+        this.idProductoCarro = idProductoCarro;
+        this.cantidad = cantidad;
+    }
+    
+
     public Long getIdCarro() {
         return idCarro;
     }
