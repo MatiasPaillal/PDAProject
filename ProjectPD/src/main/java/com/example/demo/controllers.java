@@ -187,6 +187,56 @@ public class controllers {
         return "redirect:/opciones";
     }
     
+    
+       @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
+    public String actualizarProducto(String id,String url, String nombre, String precio, String categoria, Model modelo) {
+        CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
+
+        ProductoModel producto = new ProductoModel(Long.parseLong(id),nombre, Integer.parseInt(precio), categoriaProducto, url);
+
+        servicioProducto.guardar(producto);
+        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
+        modelo.addAttribute("lista", servicioProducto.getAll());
+        modelo.addAttribute("listaC", servicioCategoria.getAll());
+
+        return "redirect:opciones";
+    }
+    
+        @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
+    public String actualizarProducto(String id, Model modelo) {
+        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+      
+             
+       if(producto != null){
+       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
+       productos.add(producto); 
+        modelo.addAttribute("listaP", productos);
+        return "/Cliente_ProductoSeleccionado";
+       }else{
+           modelo.addAttribute("listaC", servicioCategoria.getAll());
+          return "Cliente_Categorias";
+       }
+         
+    }
+         @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
+    public String mostrarProductoCategoria(String id, Model modelo) {
+        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+      
+             
+       if(producto != null){
+       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
+       productos.add(producto); 
+        modelo.addAttribute("listaP", productos);
+        return "/Cliente_ProductoSeleccionado";
+       }else{
+           modelo.addAttribute("listaP", servicioProducto.getAll());
+        return "Cliente_Productos";
+       }
+         
+    }
+
+   
+    
      @GetMapping(value = "/mostrarProducto/{id}")
     public String mostrarProducto(@PathVariable String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));

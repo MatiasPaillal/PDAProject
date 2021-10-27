@@ -33,6 +33,15 @@ public class ProductoModel {
         this.idCateg = idCateg;
         this.urlImagen = urlImagen;
     }
+
+    public ProductoModel(Long idProducto, String nombre, Integer precio, CategoriaModel idCateg, String urlImagen) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.idCateg = idCateg;
+        this.urlImagen = urlImagen;
+    }
+    
     
     public Long getIdProducto() {
         return idProducto;

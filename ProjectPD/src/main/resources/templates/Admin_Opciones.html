@@ -128,56 +128,62 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                </div>
-                <div class="modal-body">
+                    </div>
+                    <div class="modal-body">
 
-                    <form>
-                        <div class="form-group">
-                            <label for="URLProducto" class="col-form-label">URL de imagen:</label>
-                            <input type="text" class="form-control" id="URLProducto">
-                        </div>
-                        <div class="form-group">
-                            <label for="nombreProducto" class="col-form-label">Nombre:</label>
-                            <input type="text" class="form-control" id="nombreProducto">
-                        </div>
-                        <div class="form-group">
-                            <label for="precioProducto" class="col-form-label">Precio:</label>
-                            <input type="text" class="form-control" id="precioProducto">
-                        </div>
+                        <form method="POST" action="actualizarProducto">
+                             <div class="form-group">
+                                <label for="idProducto" class="col-form-label">ID:</label>
+                                <input type="text" class="form-control" id="idProducto" name="id" readonly  >
+                            </div>
+                            <div class="form-group">
+                                <label for="URLProducto" class="col-form-label">URL de imagen:</label>
+                                <input type="text" class="form-control" id="URLProducto" name="url">
+                            </div>
+                            <div class="form-group">
+                                <label for="nombreProducto" class="col-form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombreProducto" name="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="precioProducto" class="col-form-label">Precio:</label>
+                                <input type="text" class="form-control" id="precioProducto" name="precio">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="categoriaProducto" class="col-form-label">Categoria:</label>
-                            <select class="form-control form-control-lg" id="categoriaProducto" name="categorias" size="1" style="padding: 3px 15px" required>
+                            <div class="form-group">
+                                <label for="categoriaProducto" class="col-form-label">Categoria:</label>
+                                <select class="form-control form-control-lg"  id="categoriaProducto" name="categoria" size="1" style="padding: 3px 15px" required>
                                     <option value="">Seleccionar Categoría</option>
                                     <option th:each="categoria : ${listaC}" th:value="${categoria.id}" th:text="${categoria.categoria}"></option>
                                 </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
+                            </div>
+                            <div class="modal-footer">
+                       
+                       <input type="submit" value="Actualizar" class="btn btn-primary" style="margin-left: 15px">
+                    </div>
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        function PasarValor(elemento) {
-
-
-            var arrayDeCadenas = elemento.value.split(";");
-
-            console.log(arrayDeCadenas);
-            document.getElementById("URLProducto").value = arrayDeCadenas[1];
-            document.getElementById("nombreProducto").value = arrayDeCadenas[2];
-            document.getElementById("precioProducto").value = arrayDeCadenas[3];
-            document.getElementById("categoriaProducto").value = arrayDeCadenas[4];
-
-
-        }
-    </script>
-
-</body>
-
+        
+        <script>
+   function PasarValor(elemento){
+       
+       
+       var arrayDeCadenas = elemento.value.split(";");
+        
+        console.log(arrayDeCadenas);
+        document.getElementById("idProducto").value = arrayDeCadenas[0];
+       document.getElementById("URLProducto").value = arrayDeCadenas[1];
+       document.getElementById("nombreProducto").value = arrayDeCadenas[2];
+       document.getElementById("precioProducto").value = arrayDeCadenas[3];
+       document.getElementById("categoriaProducto").value = arrayDeCadenas[4];
+       
+       
+ }
+</script> 
+     
+    </body>
 </html>
+
