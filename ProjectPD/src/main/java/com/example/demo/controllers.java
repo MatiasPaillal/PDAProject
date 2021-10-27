@@ -201,6 +201,39 @@ public class controllers {
 
         return "redirect:opciones";
     }
+    
+        @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
+    public String actualizarProducto(String id, Model modelo) {
+        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+      
+             
+       if(producto != null){
+       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
+       productos.add(producto); 
+        modelo.addAttribute("listaP", productos);
+        return "/Cliente_ProductoSeleccionado";
+       }else{
+           modelo.addAttribute("listaC", servicioCategoria.getAll());
+          return "Cliente_Categorias";
+       }
+         
+    }
+         @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
+    public String mostrarProductoCategoria(String id, Model modelo) {
+        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+      
+             
+       if(producto != null){
+       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
+       productos.add(producto); 
+        modelo.addAttribute("listaP", productos);
+        return "/Cliente_ProductoSeleccionado";
+       }else{
+           modelo.addAttribute("listaP", servicioProducto.getAll());
+        return "Cliente_Productos";
+       }
+         
+    }
 
    
     

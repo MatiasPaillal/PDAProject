@@ -24,8 +24,8 @@ and open the template in the editor.
         <div class="navbar-left">
             <nav class="navbar navbar-inverse navbar-static-top navbar-dark bg-dark" role="navigation">
                 <div class="container-fluid justify-content-center">
-                    <form action="" class="d-flex col-8">
-                        <input type="search" class="form-control me-2 col" placeholder="Buscar producto" aria-label="Buscar producto" id="txtBusqueda" name="barraBusqueda"></input>
+                    <form method="POST" action="mostrarProductoCategoria" class="d-flex col-8">
+                        <input type="number" class="form-control me-2 col" placeholder="Buscar producto" aria-label="Buscar producto" id="txtBusqueda" name="id" required=""></input>
                         <button type="submit" class="btn ml-2">
                                 <a href="/Cliente_Productos" title="Buscar">
                                     <img src="../imagenes/search.svg" width="25" style="filter: invert(1.5)"></img>
