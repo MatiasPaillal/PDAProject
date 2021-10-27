@@ -96,7 +96,7 @@ and open the template in the editor.
                         <div id="moopio" class="card-body p-2 border bg-light">
  
 
-                            <img class="card-img-top" width="100%" th:src="@{${productos.URLImagen}}" alt="" />
+                            <img class="card-img-top" width="100%" th:src="@{${productos.URLImagen}}" alt="Not Found" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4UTaj-alXgU-KKC6DBLQn9rt4AgUJWKhqZA&usqp=CAU'" />
                             <p th:text="${productos.nombre}" class="card-text"></p>
 
                         </div>

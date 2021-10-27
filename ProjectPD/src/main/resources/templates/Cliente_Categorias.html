@@ -93,9 +93,9 @@ and open the template in the editor.
 
                                 </div>
 
-                                <div class="card-footer">
-                                    <div class="row justify-content-md-start g-4">
-                                        <div class="col">
+                                <div class="card-footer w-75">
+                                    <div class="row justify-content-md-start d-flex">
+                                        <div class="col-4 ">
 
                                             <button type="button" class="btn btn-outline-danger">
                                                 <i class="bi bi-trash"></i>
@@ -103,9 +103,9 @@ and open the template in the editor.
 
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-4">
 
-                                            <input type="number" min="1" th:value="${productos.cantidad}" style="width: 50px;" class="form-control">
+                                            <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control">
 
                                         </div>
 
@@ -113,9 +113,9 @@ and open the template in the editor.
                                 </div>
 
                             </div>
-
+                            <img src="../static/imagenes/productos/celulares/Samsung S10.jpg" alt=""/>
                             <div class="col-md-4">
-                                <img class="img-fluid rounded-end" src="../imagenes/productos/celulares/Apple Iphone 12.jpg " alt=" " />
+                                <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
                             </div>
 
                         </div>

@@ -65,7 +65,7 @@ public class controllers {
     @GetMapping("/Cliente_Productos")
     String Cliente_Productos(Model modelo) {
         modelo.addAttribute("listaP", servicioProducto.getAll());
-         modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaCarro", servicioCarro.getAll());
         return "Cliente_Productos";
     }
 
@@ -215,9 +215,11 @@ public class controllers {
             ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
             return "/Cliente_ProductoSeleccionado";
         } else {
             modelo.addAttribute("listaC", servicioCategoria.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
             return "Cliente_Categorias";
         }
 
@@ -231,9 +233,11 @@ public class controllers {
             ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
             return "/Cliente_ProductoSeleccionado";
         } else {
             modelo.addAttribute("listaP", servicioProducto.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
             return "Cliente_Productos";
         }
 
@@ -280,11 +284,12 @@ public class controllers {
             productos.add(producto);
             CarroModel carro = new CarroModel(producto, (Integer) cantidad);
             servicioCarro.guardar(carro);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
             modelo.addAttribute("listaP", productos);
         } catch (NumberFormatException e) {
 
         }
-
+        
         return "/Cliente_ProductoSeleccionado";
     }
 
@@ -297,8 +302,10 @@ public class controllers {
             ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
             productos.add(producto);
             modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
         } catch (NumberFormatException e) {
             modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
         }
         return "/Cliente_ProductoSeleccionado";
     }
