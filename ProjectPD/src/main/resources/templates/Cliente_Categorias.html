@@ -64,11 +64,11 @@ and open the template in the editor.
             <div th:if="${!listaC.isEmpty()}" class="row row-cols-4">
                 <div class="col mb-2 col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3" th:each="categorias: ${listaC}">
 
-                    <div class="card border-info" style="width: 12rem">
+                    <div class="card border-info position-static" style="width: 15rem">
                         <a href="/Cliente_Productos" style="text-decoration: none; color: inherit">
                             <img th:src="@{${categorias.urlImagenC}}" class="card-img-top mt-1" alt="No se encuentra la imagen" />
                             <div class="card-body">
-                                <h4 class="card-title display-6 text-center fs-2" th:text="${categorias.categoria}"></h4>
+                                <h4 class="card-title display-6 text-center fs-3" th:text="${categorias.categoria}"></h4>
                             </div>
                         </a>
                     </div>
@@ -89,7 +89,7 @@ and open the template in the editor.
 
                 <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
                     <!--Contenido del Carrito (Producto)-->
-                    <div th:each="productos :${listaCarro}"  class="card p-2 row mb-4" style="max-width: 540px;">
+                    <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
 
                         <div class="row g-0 d-inline-flex">
 
@@ -99,7 +99,7 @@ and open the template in the editor.
 
                                     <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
                                     <h1 class="display-6 fs-6" th:text="${productos.idProductoCarro.getPrecio()}"></h1>
-                            
+
 
                                 </div>
 
@@ -125,7 +125,9 @@ and open the template in the editor.
                             </div>
                             
                             <div class="col-md-4">
+
                                 <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+
                             </div>
 
                         </div>
