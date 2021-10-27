@@ -77,9 +77,9 @@ and open the template in the editor.
 
             <div class="offcanvas-body">
 
-                <div id="carro-compras">
+                <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
                     <!--Contenido del Carrito (Producto)-->
-                    <div class="card p-2 row mb-4" style="max-width: 540px;">
+                    <div th:each="productos :${listaCarro}"  class="card p-2 row mb-4" style="max-width: 540px;">
 
                         <div class="row g-0">
 
@@ -87,8 +87,9 @@ and open the template in the editor.
 
                                 <div class="card-body">
 
-                                    <h1 class="display-6 fs-5 card-title ">Nombre del Producto</h1>
-                                    <h1 class="display-6 fs-6">$500.000</h1>
+                                    <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
+                                    <h1 class="display-6 fs-6" th:text="${productos.idProductoCarro.getPrecio()}"></h1>
+                            
 
                                 </div>
 
@@ -104,7 +105,7 @@ and open the template in the editor.
 
                                         <div class="col">
 
-                                            <input type="number" min="1" value="1" style="width: 50px;" class="form-control">
+                                            <input type="number" min="1" th:value="${productos.cantidad}" style="width: 50px;" class="form-control">
 
                                         </div>
 
