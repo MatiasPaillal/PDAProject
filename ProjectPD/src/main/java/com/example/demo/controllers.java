@@ -157,7 +157,7 @@ public class controllers {
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
         productos.add(producto);
 
-        if (productos != null) {
+        if (producto != null) {
             modelo.addAttribute("lista", productos);
             return "Admin_Opciones";
         } else {
