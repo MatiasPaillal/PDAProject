@@ -65,6 +65,7 @@ public class controllers {
     @GetMapping("/Cliente_Productos")
     String Cliente_Productos(Model modelo) {
         modelo.addAttribute("listaP", servicioProducto.getAll());
+         modelo.addAttribute("listaCarro", servicioCarro.getAll());
         return "Cliente_Productos";
     }
 
