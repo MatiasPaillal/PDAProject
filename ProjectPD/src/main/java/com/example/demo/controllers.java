@@ -136,19 +136,9 @@ public class controllers {
         return "Admin_ProductoSeleccionado";
     }
 
-    /*
+  //************lOGIN ADMIN*************
     @RequestMapping(value = "consultaAdmin", method = RequestMethod.POST)
-    public String consultaAdmin(String name, String password) {
-        if ("1".equals(name) && "1".equals(password)) {
-            return "Admin_Opciones";
-        }
-
-        return "IngresarAdmin";
-
-   
-     */
-    @RequestMapping(value = "consultaAdmin", method = RequestMethod.POST)
-    public String admin_Opciones(String usuario, String password, Model modelo) {
+    public String admin_logear(String usuario, String password, Model modelo) {
 
         Administrador admins = (Administrador) servicioAdmin.obtener(usuario);
 
@@ -166,6 +156,8 @@ public class controllers {
         return "Ingresar";
     }
 
+    
+     //************CONSULTA PRODUCTO ADMIN*************
     @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
     public String consultaProductos(String codigo, Model modelo) {
         ProductoModel producto = servicioProducto.obtener(Long.parseLong(codigo));
@@ -183,7 +175,7 @@ public class controllers {
         }
 
     }
-
+//***************************GUARDAR PRODUCTO*********************************************
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
     public String guardarProducto(String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
         CategoriaModel categoria = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categorias)));
@@ -197,7 +189,7 @@ public class controllers {
 
         return "redirect:opciones";
     }
-
+   //************ELIMINAR PRODUCTO*************
     @GetMapping(value = "/eliminar/{id}")
     public String eliminarProducto(@PathVariable String id, Model modelo) {
 
@@ -219,7 +211,7 @@ public class controllers {
         return "redirect:/Cliente_Categorias";
     }
     
-
+ //************ACTUALIZAR ADMIN*************
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
     public String actualizarProducto(String id, String url, String nombre, String precio, String categoria, Model modelo) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
