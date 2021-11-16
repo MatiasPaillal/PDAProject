@@ -7,21 +7,22 @@ package com.example.demo.Admin.Commons;
 
 import java.io.Serializable;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
- *
  * @author matias
  */
 @Service
-public interface ServicioGen <T, ID extends  Serializable>{
+public interface ServicioGen<T, ID extends Serializable> {
     T guardar(T entity);
+
     void eliminar(ID id);
-    
+
     T obtener(ID id);
-   
-    
+
+
     List<T> getAll();
-    
-    
+
+
 }

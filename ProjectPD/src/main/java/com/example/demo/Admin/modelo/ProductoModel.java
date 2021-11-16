@@ -19,7 +19,7 @@ public class ProductoModel {
     @ManyToOne()
     @JoinColumn(nullable = false, referencedColumnName = "id")
     private CategoriaModel idCateg;
-    
+
     @Column(nullable = false)
     private String urlImagen;
 
@@ -27,7 +27,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(String nombre, Integer precio, CategoriaModel idCateg, String urlImagen) {
-    
+
         this.nombre = nombre;
         this.precio = precio;
         this.idCateg = idCateg;
@@ -41,8 +41,8 @@ public class ProductoModel {
         this.idCateg = idCateg;
         this.urlImagen = urlImagen;
     }
-    
-    
+
+
     public Long getIdProducto() {
         return idProducto;
     }
