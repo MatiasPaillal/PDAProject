@@ -305,7 +305,7 @@ public class controllers {
 
     }
 
-    @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
+    @RequestMapping(value = "mostrarProducto/agregarProductoCarro", method = RequestMethod.POST)
     public String agregarProductoCarro(String id, int cantidad, Model modelo) {
 
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
@@ -317,6 +317,7 @@ public class controllers {
             servicioCarro.guardar(carro);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
             modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaTotal", generarTotal());
         } catch (NumberFormatException e) {
 
         }
