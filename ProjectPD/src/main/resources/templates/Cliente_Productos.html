@@ -129,7 +129,7 @@ and open the template in the editor.
 
                     <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
                         <!--Contenido del Carrito (Producto)-->
-                        <div th:each="productos :${listaCarro}"  class="card p-2 row mb-4" style="max-width: 540px;">
+                        <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
 
                             <div class="row g-0 d-inline-flex">
 
@@ -147,9 +147,9 @@ and open the template in the editor.
                                         <div class="row justify-content-md-start ">
                                             <div class="col-4 ">
 
-                                                <button type="button" class="btn btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+
+                                                <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarro/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a> 
+
 
                                             </div>
 
@@ -165,7 +165,9 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="col-md-4">
+
                                     <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+
                                 </div>
 
                             </div>
@@ -186,8 +188,8 @@ and open the template in the editor.
                     </div>
                     <div class="row">
 
-                        <label for="totalCarro" class="col-auto col-form-label display-1">Total</label>
-                        <div class="col">
+                        <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
+                        <div  class="col">
                             <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}"   id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                         </div>
 
