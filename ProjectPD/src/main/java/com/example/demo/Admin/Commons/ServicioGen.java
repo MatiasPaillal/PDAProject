@@ -18,6 +18,7 @@ public interface ServicioGen<T, ID extends Serializable> {
     T guardar(T entity);
 
     void eliminar(ID id);
+    void actualizar(ID id);
 
     T obtener(ID id);
 

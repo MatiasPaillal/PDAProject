@@ -42,7 +42,13 @@ public abstract class servicioGenImpl<T, ID extends Serializable> implements Ser
 
         return null;
   
-  }
+  } @Override
+    public void actualizar(ID id) {
+     
+        
+
+    }
+
     
     @Override
     public List<T> getAll(){
