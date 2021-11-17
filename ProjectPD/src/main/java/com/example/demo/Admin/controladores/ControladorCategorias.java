@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ControladorCategorias {
-
+    
     @Autowired
     private ServicioAdmin servicioAdmin;
     @Autowired
@@ -33,7 +33,7 @@ public class ControladorCategorias {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-
+    
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -43,16 +43,16 @@ public class ControladorCategorias {
         ArrayList<Integer> totales = new ArrayList<Integer>();
         totales.add(total);
         return totales;
-
+        
     }
-
+    
     @GetMapping("/Cliente_Categorias")
     String Cliente_Categorias(Model modelo) {
-
+        
         modelo.addAttribute("listaC", servicioCategoria.getAll());
         modelo.addAttribute("listaCarro", servicioCarro.getAll());
         modelo.addAttribute("listaTotal", generarTotal());
-
+        
         return "Cliente_Categorias";
     }
 
@@ -61,28 +61,28 @@ public class ControladorCategorias {
     public String mostrarProductosCategoria(String idCateg, Model modelo) {
         ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
         ArrayList<ProductoModel> productosCateg = new ArrayList<>();
-
+        
         if (!productos.isEmpty()) {
-
+            
             for (int i = 0; i < productos.size(); i++) {
                 if ((productos.get(i).getIdCateg().getId() == Long.parseLong(idCateg))) {
                     System.out.println(productos.get(i).getNombre() + "---" + productos.get(i).getIdCateg().getId());
                     productosCateg.add(productos.get(i));
                 }
             }
-
+            
             if (productosCateg.isEmpty()) {
                 modelo.addAttribute("listaC", servicioCategoria.getAll());
                 modelo.addAttribute("listaCarro", servicioCarro.getAll());
                 modelo.addAttribute("listaTotal", generarTotal());
                 return "Cliente_Categorias";
             }
-
+            
             modelo.addAttribute("listaP", productosCateg);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
             modelo.addAttribute("listaTotal", generarTotal());
             return "Cliente_Productos";
-
+            
         } else {
             modelo.addAttribute("listaC", servicioCategoria.getAll());
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
@@ -111,20 +111,21 @@ public class ControladorCategorias {
         }
 
     }*/
-
+    
     @GetMapping(value = "/eliminarDelCarroCategoria/{id}")
     public String eliminarDelCarro(@PathVariable String id, Model modelo) {
-
+        
         try {
             servicioCarro.eliminar(Long.parseLong(id));
         } catch (NumberFormatException e) {
         }
         return "redirect:/Cliente_Categorias";
     }
+    
     @RequestMapping(value = "mostrarProductoCateg", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-
+        
         if (producto != null) {
             ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
             productos.add(producto);
@@ -138,12 +139,13 @@ public class ControladorCategorias {
             modelo.addAttribute("listaTotal", generarTotal());
             return "Cliente_Categorias";
         }
-
+        
     }
+    
     @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
     public String agregarProductoCarro2(String id, int cantidad, Model modelo) {
-
-       ArrayList<CarroModel> carros =(ArrayList<CarroModel>) servicioCarro.getAll();
+        
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
         CarroModel prodCarro = null;
         for (CarroModel x : carros) {
             if (x.getIdProductoCarro().getIdProducto().equals(Long.parseLong(id))) {
@@ -151,29 +153,56 @@ public class ControladorCategorias {
                 break;
             }
         }
-
+        
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-
+        
         try {
             ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
             productos.add(producto);
-
+            
             if (prodCarro != null) {
                 prodCarro.setCantidad(cantidad + prodCarro.getCantidad());
-
+                
             } else {
                 prodCarro = new CarroModel(producto, (Integer) cantidad);
-
+                
             }
             servicioCarro.guardar(prodCarro);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
             modelo.addAttribute("listaP", productos);
             modelo.addAttribute("listaTotal", generarTotal());
         } catch (NumberFormatException e) {
-
+            
         }
-
+        
         return "/Cliente_ProductoSeleccionado";
     }
-
+    
+    @RequestMapping(value = "cambiarCantidadCateg", method = RequestMethod.POST)
+    public String cambiarCantidadProducto(int idProducto, int cantProducto, Model modelo) {
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
+        CarroModel prodCarro = null;
+        
+        System.out.println("IDPRODUCTO: " + idProducto + "   CANTIDAD: " + cantProducto);
+        
+        for (CarroModel x : carros) {
+            if (x.getIdProductoCarro().getIdProducto().equals(Long.parseLong(String.valueOf(idProducto)))) {
+                prodCarro = x;
+                System.out.println("SE ENCONTRÓ");
+                break;
+            }
+        }
+        
+        if (prodCarro != null) {
+            prodCarro.setCantidad(cantProducto);
+            servicioCarro.guardar(prodCarro);
+        }
+        
+        modelo.addAttribute("listaC", servicioCategoria.getAll());
+        modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
+        
+        return "/Cliente_Categorias";
+    }
+    
 }
