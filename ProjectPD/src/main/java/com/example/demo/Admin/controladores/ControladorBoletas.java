@@ -1,7 +1,9 @@
 package com.example.demo.Admin.controladores;
 
+import com.example.demo.Admin.modelo.BoletaModel;
 import com.example.demo.Admin.modelo.CarroModel;
 import com.example.demo.Admin.modelo.TiendaModel;
+import com.example.demo.Admin.servicios.ServicioBoleta;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Admin.servicios.ServicioCarro;
 import com.example.demo.Admin.servicios.ServicioTienda;
 import com.example.demo.Boleta;
+import java.time.LocalDateTime;
 
 /**
  * @author matias
@@ -27,6 +30,9 @@ public class ControladorBoletas {
 
     @Autowired
     private ServicioTienda servicioTienda;
+    
+    @Autowired
+    private ServicioBoleta servicioBoleta;
 
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
@@ -52,6 +58,30 @@ public class ControladorBoletas {
         return "Boleta";
     }
 
+    @RequestMapping(value = "realizarCompra", method = RequestMethod.POST)
+    public String generarBoleta(Model modelo) {
+        TiendaModel tienda = servicioTienda.getAll().get(0);
+
+        ArrayList<CarroModel> carro = (ArrayList<CarroModel>) servicioCarro.getAll();
+        int totalCompra = 0;
+
+        for (CarroModel producto : carro) {
+            totalCompra += producto.getIdProductoCarro().getPrecio() * producto.getCantidad();
+        }
+
+        BoletaModel boleta = new BoletaModel(LocalDateTime.now(), totalCompra, tienda);
+        servicioBoleta.guardar(boleta);
+        
+        
+        
+        modelo.addAttribute("totalCompra", totalCompra);
+        modelo.addAttribute("boleta", boleta);
+        modelo.addAttribute("listaP", servicioCarro.getAll());
+        modelo.addAttribute("infoTienda", servicioTienda.getAll());
+        
+        return "Cliente_Boleta";
+    }
+
     /*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
     public String mostrarProductoCategoria(String nombre, Model modelo) {
         
@@ -72,19 +102,7 @@ public class ControladorBoletas {
            modelo.addAttribute("listaP", servicioProducto.getAll());
         return "Cliente_Productos";
        }
-         
-    }*/
-    @RequestMapping(value = "generarBoleta", method = RequestMethod.POST)
-    public String generarBoleta(Model modelo) {
-
-        modelo.addAttribute("listaP", servicioCarro.getAll());
-
-        return "Cliente_Boleta";
-
-    }
-
-
-    /*
+     
     
     @RequestMapping("/Admin_Opciones")
      public String mostrarAdmin(Model modelo) {
