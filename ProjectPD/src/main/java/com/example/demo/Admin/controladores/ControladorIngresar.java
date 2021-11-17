@@ -72,7 +72,7 @@ public class ControladorIngresar {
         try {
             if (admins.getPassword().equals(password)) {
 
-                modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
+                modelo.addAttribute("listaAdmin", servicioAdmin.obtener(usuario));
                 modelo.addAttribute("lista", servicioProducto.getAll());
                 modelo.addAttribute("listaC", servicioCategoria.getAll());
                 return "Admin_Opciones";

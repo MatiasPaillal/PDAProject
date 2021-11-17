@@ -1,47 +1,76 @@
-<!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
 
 <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <style>
-        .container ::-webkit-scrollbar {
-            width: 7px;
-        }
-        
-        .container ::-webkit-scrollbar-thumb {
-            background: rgb(6, 150, 160);
-            border-radius: 5px;
-        }
-    </style>
-
-
+  <title>ADMINISTRADOR</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    #sidebar {
+      width: 20%;
+      height: 100vh;
+      background: #343a40;
+    }
+  </style>
 </head>
 
-<body background="../imagenes/Fondo.jpg">
-
-
-
-    <div>
-
-        <h1 class="display-1" style="font-size: 70px; text-align: center; color: white" th:each="admin: ${listaAdmin}" th:text="'BIENVENIDO  ' + ${admin.nombre}"></h1>
-        <br><br><br>
-
+<body>
+  <div class="d-flex">
+    <div id="sidebar">
+      <div class="p-2">
+        <a href="#" class="navbar-brand text-center text-light w-100 p-4 border-bottom">
+          Bienvenido
+        </a>
+      </div>
+      <div id="sidebar-accordion" class="accordion">
+        <div class="list-group">
+          <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
+            class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fa fa-tachometer mr-3" aria-hidden="true"></i>Historial
+          </a>
+           
+           <a>
+           <button type="" class="list-group-item list-group-item-action bg-dark text-light" data-toggle="modal" data-target="#modalPerfil" data-whatever="@getbootstrap">Perfil</button>
+              
+          </a>
+          <a>
+           <button type="" class="list-group-item list-group-item-action bg-dark text-light" data-toggle="modal" data-target="#exampleModal2" data-whatever="@getbootstrap">Agregar Producto</button>
+              
+          </a>
+          
+           
+        </div>
+      </div>
     </div>
-
-    
-
+    <div class="content w-100">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-xl">
+          <a class="navbar-brand" th:each="admin: ${listaAdmin}" th:text="${admin.nombre}"></a>
+           
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="collapse navbar-collapse" id="navbarsExample07XL">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/Ingresar">Home <span class="sr-only">(current)</span></a>
+              </li>
+             </ul>
+            
+          </div>
+        </div>
+      </nav>
+       
+ 
     <div class="container">
 
 
@@ -49,27 +78,7 @@
 
         <div th:if="${!lista.isEmpty()}" style="background-color: white; padding: 15px; max-height: 25%; box-shadow: 2px 2px 5px #999999">
             <h2 class="display-5" style="text-align: center">Productos</h2>
-
-            <h5 class="display-6" style="font-size: 22px">Agregar un nuevo producto</h5>
-
-<!--FORMULARIO AGREGAR PRODUCTO-->
-            <form method="POST" action="guardarProducto">
-                <table>
-                    <tr>
-                        <th><input class="form-control form-control-lg" type="text" id="fURL" name="fURL" required="" placeholder="URL Imagen"></th>
-                        <th><input class="form-control form-control-lg" type="text" id="fnombre" name="fnombre" required="" placeholder="Nombre"></th>
-                        <th><input class="form-control form-control-lg" min="1" max="999999999" type="number" id="fprecio" name="fprecio" required="" placeholder="Precio" size="5"></th>
-                        <th>
-                            <select class="form-control form-control-lg" id="categorias" name="categorias" size="1" style="padding: 3px 15px" required>
-                                    <option value="">Seleccionar Categoría</option>
-                                    <option th:each="categoria : ${listaC}" th:value="${categoria.id}" th:text="${categoria.categoria}"></option>
-                                </select>
-                        </th>
-                        <th><input type="submit" value="Guardar" class="btn btn-primary" style="margin-left: 15px"></th>
-                    </tr>
-
-                </table>
-            </form>
+  
             <!--FORMULARIO BUSCAR PRODUCTO-->
              <div class="container d-flex justify-content-center" style="margin: 25px">
         <form METHOD="POST" action="buscarProducto">
@@ -79,14 +88,13 @@
 
         </form>
     </div>
-            
-            
+                      
             
             
             
          <!--TABLA PRODUCTOS-->   
             
-            <div class="barraScroll" style="overflow-y: scroll; height: 340px;">
+            <div class="barraScroll" style="overflow-y: scroll; height: 448px;">
                 <table class="table">
                     <thead>
                         <tr>
@@ -108,7 +116,7 @@
                                         <td th:text="${producto.idCateg.getCategoria()}">
                                             <td>
 
-                                                <button onclick="PasarValor(this);" id="btn-EditarProducto" th:value="${producto.idProducto}+';'+${producto.URLImagen}+';'+${producto.nombre}+';'+${producto.precio}+';'+${producto.idCateg.getId()}" type="" class="boton btn btn-primary" data-toggle="modal"
+                                                <button onclick="PasarValor(this);" id="#exampleModal" th:value="${producto.idProducto}+';'+${producto.URLImagen}+';'+${producto.nombre}+';'+${producto.precio}+';'+${producto.idCateg.getId()}" type="" class="boton btn btn-primary" data-toggle="modal"
                                                     data-target="#exampleModal" data-whatever="@getbootstrap">Editar</button>
 
                                                 <a class="btn btn-danger" th:href="@{/eliminar/{id}(id=${producto.idProducto})}">Eliminar</a>
@@ -176,7 +184,96 @@
         </div>
     </div>
 
-    <script>
+     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+
+                    <form  method="POST" action="guardarProducto">
+                        <div class="form-group">
+                            <label for="contraseña" class="col-form-label">URL</label>
+                            <input type="text" class="form-control" name="fURL">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control"   name="fnombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label">Precio</label>
+                            <input type="number" class="form-control"   name="fprecio">
+                        </div>
+                        <div class="form-group">
+                                <select class="form-control form-control-lg" id="categorias" name="categorias" size="1" style="padding: 3px 15px" required>
+                                    <option value="">Seleccionar Categoría</option>
+                                    <option th:each="categoria : ${listaC}" th:value="${categoria.id}" th:text="${categoria.categoria}"></option>
+                                </select>
+                        </div>
+                        
+                         
+                        <div class="modal-footer">
+
+                            <input type="submit" value="Agregar" class="btn btn-primary" style="margin-left: 15px">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+ <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion del administrador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" th:each="admin: ${listaAdmin}">
+
+                    <form  method="POST" action="perfilAdmin">
+                        <div class="form-group">
+                            <label for="contraseña" class="col-form-label">Nombre de usuario:</label>
+                            <input type="text" class="form-control" readonly name="usuario" th:value="${admin.usuario}">
+                        </div>
+                        <div class="form-group">
+                            <label for="contraseña" class="col-form-label">Nombre:</label>
+                            <input type="text" class="form-control" readonly name="nombre" th:value="${admin.nombre}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label">Contraseña:</label>
+                            <input type="text" class="form-control" readonly  name="password" th:value="${admin.password}" >
+                        </div>
+                        
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+
+        
+        
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script> <script>
         function PasarValor(elemento) {
             var arrayDeCadenas = elemento.value.split(";");
 
@@ -189,7 +286,6 @@
 
         }
     </script>
-
 </body>
 
 </html>
