@@ -121,5 +121,59 @@ public class ControladorCategorias {
         }
         return "redirect:/Cliente_Categorias";
     }
+    @RequestMapping(value = "mostrarProductoCateg", method = RequestMethod.POST)
+    public String mostrarProductoEncontrado(String id, Model modelo) {
+        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+
+        if (producto != null) {
+            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+            productos.add(producto);
+            modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "/Cliente_ProductoSeleccionado";
+        } else {
+            modelo.addAttribute("listaC", servicioCategoria.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Categorias";
+        }
+
+    }
+    @RequestMapping(value = "agregarProductoCarro", method = RequestMethod.POST)
+    public String agregarProductoCarro2(String id, int cantidad, Model modelo) {
+
+       ArrayList<CarroModel> carros =(ArrayList<CarroModel>) servicioCarro.getAll();
+        CarroModel prodCarro = null;
+        for (CarroModel x : carros) {
+            if (x.getIdProductoCarro().getIdProducto().equals(Long.parseLong(id))) {
+                prodCarro = x;
+                break;
+            }
+        }
+
+        ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+
+        try {
+            ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
+            productos.add(producto);
+
+            if (prodCarro != null) {
+                prodCarro.setCantidad(cantidad + prodCarro.getCantidad());
+
+            } else {
+                prodCarro = new CarroModel(producto, (Integer) cantidad);
+
+            }
+            servicioCarro.guardar(prodCarro);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaP", productos);
+            modelo.addAttribute("listaTotal", generarTotal());
+        } catch (NumberFormatException e) {
+
+        }
+
+        return "/Cliente_ProductoSeleccionado";
+    }
 
 }
