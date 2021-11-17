@@ -10,11 +10,10 @@
 
         <h1 align="center" style="font-size: 40px;">Boleta</h1>
         <div style="background-color: white; width: 40%; margin: 0 30%; position:relative; height:600px">
-            <h1 align="center" style="font-size: 20px;">R.U.T: 00.000.000-0</h1> 
+            <h1 align="center" style="font-size: 20px;" th:text="'R.U.T: ' + ${infoTienda[0].rutTienda}"></h1> 
             <h1 align="center" style="font-size: 20px;">BOLETA ELECTRONICA</h1>
-            <h1 align="center" style="font-size: 20px;">N° 11111</h1><br>
-                <table style="margin: 0 auto; text-align: left;" th:if="${!infoTienda.isEmpty()}">
-                    <tr><td align="left" style="font-size: 20px" th:text="'R.U.T: ' + ${infoTienda[0].rutTienda}"></td></tr>   
+            <h1 align="center" style="font-size: 20px;" th:text="'N° ' + ${boleta.nroBoleta}"></h1><br>
+                <table style="margin: 0 auto; text-align: left;" th:if="${!infoTienda.isEmpty()}"> 
                     <tr><td align="left" style="font-size: 20px" th:text="'Telefono: ' + ${infoTienda[0].telefono}"></td></tr>
                     <tr><td align="left" style="font-size: 20px" th:text="'Fecha Emisión: ' + ${boleta.fechaEmisionFormateada()}"></td></tr>
                 </table> 
