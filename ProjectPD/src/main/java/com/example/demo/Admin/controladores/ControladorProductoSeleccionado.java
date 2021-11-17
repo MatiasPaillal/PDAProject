@@ -98,7 +98,7 @@ public class ControladorProductoSeleccionado {
         return "redirect:/mostrarProducto/" + id2;
     }
 
-    @RequestMapping(value = "mostrarProductoSelec", method = RequestMethod.POST)
+    @RequestMapping(value = "/mostrarProducto/mostrarProductoSelec", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
 
