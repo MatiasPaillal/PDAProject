@@ -22,6 +22,12 @@ public class BoletaModel {
     @JoinColumn(nullable = false, referencedColumnName = "rutTienda")
     private TiendaModel rutTienda;
 
+    public BoletaModel(LocalDateTime fechaEmision, Integer total, TiendaModel rutTienda) {
+        this.fechaEmision = fechaEmision;
+        this.total = total;
+        this.rutTienda = rutTienda;
+    }
+
     public Long getNroBoleta() {
         return this.nroBoleta;
     }
@@ -52,6 +58,17 @@ public class BoletaModel {
 
     public void setRutTienda(TiendaModel rutTienda) {
         this.rutTienda = rutTienda;
+    }
+
+    public String fechaEmisionFormateada() {
+        String fechaFormateada = this.fechaEmision.getDayOfMonth() + "-"
+                + this.fechaEmision.getMonthValue() + "-"
+                + this.fechaEmision.getYear() + "   "
+                + this.fechaEmision.getHour() + ":"
+                + this.fechaEmision.getMinute() + ":"
+                + this.fechaEmision.getSecond();
+        
+        return fechaFormateada;
     }
 
 }
