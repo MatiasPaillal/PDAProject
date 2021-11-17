@@ -106,5 +106,8 @@ public class ControladorAdminOpciones {
 
         return "redirect:opciones";
     }
-
+ @GetMapping("/barra")
+    String IngresarAdmin() {
+        return "barra";
+    }
 }
