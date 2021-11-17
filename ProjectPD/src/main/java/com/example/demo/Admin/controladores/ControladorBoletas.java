@@ -78,7 +78,7 @@ public class ControladorBoletas {
         modelo.addAttribute("boleta", boleta);
         modelo.addAttribute("listaP", servicioCarro.getAll());
         modelo.addAttribute("infoTienda", servicioTienda.getAll());
-        
+        servicioCarro.vaciarTabla();
         return "Cliente_Boleta";
     }
 
