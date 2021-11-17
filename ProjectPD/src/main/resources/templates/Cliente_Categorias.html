@@ -7,126 +7,138 @@ and open the template in the editor.
 <html lang="es-CL " xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 
-<head>
-    <title>CLIENTE-CATEGORIAS</title>
-    <link rel="stylesheet" href="../css/cliente.css"></link>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css"></link>
+    <head>
+        <title>CLIENTE-CATEGORIAS</title>
+        <link rel="stylesheet" href="../css/cliente.css"></link>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css"></link>
 
-    <meta charset="utf-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+            <meta charset="utf-8"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-    <style>
-        .container ::-webkit-scrollbar {
-            width: 7px;
-        }
-        
-        .container ::-webkit-scrollbar-thumb {
-            background: rgb(6, 150, 160);
-            border-radius: 5px;
-        }
-    </style>
-</head>
+            <style>
+                .container ::-webkit-scrollbar {
+                    width: 7px;
+                }
 
-<body style="background-image: url('../imagenes/Fondo.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-attachment: fixed; margin-top: 5rem">
+                .container ::-webkit-scrollbar-thumb {
+                    background: rgb(6, 150, 160);
+                    border-radius: 5px;
+                }
+            </style>
+    </head>
 
-    <header class="position-fixed top-0 start-0 end-0">
-        <div class="navbar-left">
-            <nav class="navbar navbar-inverse navbar-static-top navbar-dark bg-dark" role="navigation">
-                <div class="container-fluid justify-content-center">
-                    <form method="POST" action="mostrarProductoCategoria" class="d-flex col-8">
-                        <input type="number" class="form-control me-2 col" placeholder="Buscar producto" aria-label="Buscar producto" id="txtBusqueda" name="id" required=""></input>
-                        <button type="submit" class="btn ml-2">
+    <body style="background-image: url('../imagenes/Fondo.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-attachment: fixed; margin-top: 5rem">
+
+        <header class="position-fixed top-0 start-0 end-0">
+            <div class="navbar-left">
+                <nav class="navbar navbar-inverse navbar-static-top navbar-dark bg-dark" role="navigation">
+                    <div class="container-fluid justify-content-center">
+                        <a href="/" class="me-4">
+                            <img src="../imagenes/arrow-left-circle.svg" width="35" style="filter: invert(1.5)" />
+                        </a>
+
+                        <form method="POST" action="mostrarProductoCategoria" class="d-flex col-8">
+                            <input type="number" class="form-control me-2 col" placeholder="Buscar producto" aria-label="Buscar producto" id="txtBusqueda" name="id" required=""></input>
+                            <button type="submit" class="btn ml-2">
                                 <a href="/Cliente_Productos" title="Buscar">
                                     <img src="../imagenes/search.svg" width="25" style="filter: invert(1.5)"></img>
                                 </a>
                             </button>
 
-                    </form>
+                        </form>
 
-                    <a class="btn ms-1 btn-outline-info" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                        <img src="../imagenes/Icon metro-cart.png" width="25" style="filter: invert(1.5)" /> Carrito
-                    </a>
-
-                </div>
-            </nav>
-        </div>
-    </header>
-
-
-    <div class="container bg-light pb-2">
-        <div class="d-flex justify-content-center mt-3 py-2">
-            <h2 class="display-5 fs-3" style="text-align: center">Categorias</h2>
-        </div>
-
-        <div class="d-flex offset-1">
-
-            <div th:if="${!listaC.isEmpty()}" class="row row-cols-4">
-                <div class="col mb-2 col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3" th:each="categorias: ${listaC}">
-
-                    <div class="card border-info position-static" style="width: 15rem">
-                        <a href="/Cliente_Productos" style="text-decoration: none; color: inherit">
-                            <img th:src="@{${categorias.urlImagenC}}" class="card-img-top mt-1" alt="No se encuentra la imagen" />
-                            <div class="card-body">
-                                <h4 class="card-title display-6 text-center fs-3" th:text="${categorias.categoria}"></h4>
-                            </div>
+                        <a class="btn ms-1 btn-outline-info" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                            <img src="../imagenes/Icon metro-cart.png" width="25" style="filter: invert(1.5)" /> Carrito
                         </a>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+
+        <div class="container bg-light pb-2">
+            <div class="d-flex justify-content-center mt-3 py-2">
+                <h2 class="display-5 fs-3" style="text-align: center">Categorias</h2>
+            </div>
+
+            <div class="d-flex offset-1">
+
+                <div th:if="${!listaC.isEmpty()}" class="row row-cols-4">
+                    <div class="col mb-2 col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3" th:each="categorias: ${listaC}">
+
+                        <div class="card border-info position-static" style="width: 15rem">
+                            <!-- mostrarProductosPorCategoria -->
+                            <form action="mostrarProductosPorCategoria" method="POST">
+                                <input name="idCateg" type="text" th:value="${categorias.id}" hidden="true"></input>
+
+                                <button type="submit" style="border: none">
+                                    <img th:src="@{${categorias.urlImagenC}}" class="card-img-top max mt-1" alt="No se encuentra la imagen"/>
+                                    <div class="card-body">
+                                        <h4 class="card-title display-6 text-center fs-3" th:text="${categorias.categoria}"></h4>
+                                    </div>
+                                    </abutton>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="offcanvas offcanvas-end mt-6" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas offcanvas-end mt-6" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
-            <div class="offcanvas-header">
-                <img src="../imagenes/Icon metro-cart.png" width="25" />
-                <h5 class="offcanvas-title" id="offcanvasTitulo">Carrito</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
+                <div class="offcanvas-header">
+                    <img src="../imagenes/Icon metro-cart.png" width="25" />
+                    <h5 class="offcanvas-title" id="offcanvasTitulo">Carrito</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
 
-            <div class="offcanvas-body">
+                <div class="offcanvas-body">
 
-                <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
-                    <!--Contenido del Carrito (Producto)-->
-                    <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
+                    <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
+                        <!--Contenido del Carrito (Producto)-->
+                        <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
 
-                        <div class="row g-0 d-inline-flex">
+                            <div class="row g-0 d-inline-flex">
 
-                            <div class="col-md-8">
+                                <div class="col-md-8">
 
-                                <div class="card-body">
+                                    <div class="card-body">
 
-                                    <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
-                                    <h1 class="display-6 fs-6" th:text="${productos.idProductoCarro.getPrecio()}"></h1>
+                                        <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
+                                        <h1 class="display-6 fs-6" th:text="${productos.idProductoCarro.getPrecio()}"></h1>
 
-
-                                </div>
-
-                                <div class="card-footer">
-                                    <div class="row justify-content-md-start ">
-                                        <div class="col-4 ">
-
-                                                                                      
-                                            <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroCategoria/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
-                                                
-                                             
-                                        </div>
-
-                                        <div class="col-4">
-
-                                            <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control">
-
-                                        </div>
 
                                     </div>
+
+                                    <div class="card-footer">
+                                        <div class="row justify-content-md-start ">
+                                            <div class="col-4 ">
+
+
+                                                <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroCategoria/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
+
+
+                                            </div>
+
+                                            <div class="col-4">
+
+                                                <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                            </div>
-                            
-                            <div class="col-md-4">
+                                <div class="col-md-4">
 
-                                <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+                                    <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+
+                                </div>
 
                             </div>
 
@@ -136,21 +148,21 @@ and open the template in the editor.
 
                 </div>
 
-            </div>
+                <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
 
-            <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
+                    <div class="">
+                        <a href="/Cliente_Boleta" class="btn btn-outline-success">
+                            <h1 class="display-6 fs-5">Realizar Compra</h1>
+                        </a>
 
-                <div class="">
-                    <a href="#" class="btn btn-outline-success">
-                        <h1 class="display-6 fs-5">Realizar Compra</h1>
-                    </a>
+                    </div>
+                    <div class="row">
 
-                </div>
-                <div class="row">
+                        <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
+                        <div class="col">
+                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
+                        </div>
 
-                    <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
-                    <div  class="col">
-                        <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}"   id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                     </div>
 
                 </div>
@@ -159,10 +171,8 @@ and open the template in the editor.
 
         </div>
 
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p " crossorigin="anonymous "></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p " crossorigin="anonymous "></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
+    </body>
 
 </html>

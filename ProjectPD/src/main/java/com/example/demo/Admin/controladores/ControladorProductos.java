@@ -31,20 +31,18 @@ public class ControladorProductos {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-    private int total= 12;
+    private int total = 12;
 
-
-
-    public ArrayList <Integer> generarTotal(){
-        Integer total=0;
-        ArrayList<CarroModel> carros = (ArrayList <CarroModel>) servicioCarro.getAll();
-       for(CarroModel carro:carros){
-       total+=carro.getIdProductoCarro().getPrecio()*carro.getCantidad();
-       }
-        ArrayList<Integer> totales= new ArrayList<Integer>();
+    public ArrayList<Integer> generarTotal() {
+        Integer total = 0;
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
+        for (CarroModel carro : carros) {
+            total += carro.getIdProductoCarro().getPrecio() * carro.getCantidad();
+        }
+        ArrayList<Integer> totales = new ArrayList<Integer>();
         totales.add(total);
         return totales;
-    
+
     }
 
     @GetMapping("/Cliente_Productos")
@@ -93,6 +91,7 @@ public class ControladorProductos {
         }
         return "/Cliente_ProductoSeleccionado";
     }
+
     @GetMapping(value = "/eliminarDelCarroProducto/{id}")
     public String eliminarDelCarro(@PathVariable String id, Model modelo) {
 
