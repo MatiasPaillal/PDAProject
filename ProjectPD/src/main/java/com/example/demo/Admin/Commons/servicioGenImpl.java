@@ -43,9 +43,8 @@ public abstract class servicioGenImpl<T, ID extends Serializable> implements Ser
         return null;
   
   } @Override
-    public void actualizar(ID id) {
-     
-        
+    public void vaciarTabla() {     
+       obtener().deleteAll();
 
     }
 
