@@ -1,12 +1,7 @@
 package com.example.demo.Admin.controladores;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import com.example.demo.Admin.modelo.CarroModel;
+import com.example.demo.Admin.modelo.TiendaModel;
 
 import java.util.ArrayList;
 
@@ -17,10 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.example.demo.Admin.servicios.ServicioAdmin;
-import com.example.demo.Admin.servicios.ServicioCategoria;
-import com.example.demo.Admin.servicios.ServicioProducto;
 import com.example.demo.Admin.servicios.ServicioCarro;
+import com.example.demo.Admin.servicios.ServicioTienda;
 import com.example.demo.Boleta;
 
 /**
@@ -30,13 +23,10 @@ import com.example.demo.Boleta;
 public class ControladorBoletas {
 
     @Autowired
-    private ServicioAdmin servicioAdmin;
-    @Autowired
-    private ServicioProducto servicioProducto;
-    @Autowired
-    private ServicioCategoria servicioCategoria;
-    @Autowired
     private ServicioCarro servicioCarro;
+
+    @Autowired
+    private ServicioTienda servicioTienda;
 
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
@@ -50,27 +40,17 @@ public class ControladorBoletas {
 
     }
 
-
     @GetMapping("/Cliente_Boleta")
-    String Cliente_Boleta() {
+    String Cliente_Boleta(Model modelo) {
+        modelo.addAttribute("infoTienda", servicioTienda.getAll());
         return "Cliente_Boleta";
     }
-
-
-
-
-
 
     @GetMapping("/Boletas")
     String Boleta(@RequestParam(name = "Boleta", required = false, defaultValue = "asda") Boleta boleta, Model modelo) {
         //modelo.addAttribute(this.boleta);
         return "Boleta";
     }
-
-
-
-
-
 
     /*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
     public String mostrarProductoCategoria(String nombre, Model modelo) {
@@ -134,8 +114,5 @@ public class ControladorBoletas {
         return "Admin_BuscarBoletas";
 
     }
-
-
-
 
 }

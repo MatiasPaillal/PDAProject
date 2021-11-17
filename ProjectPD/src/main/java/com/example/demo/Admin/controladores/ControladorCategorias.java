@@ -34,7 +34,6 @@ public class ControladorCategorias {
     @Autowired
     private ServicioCarro servicioCarro;
 
-
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -58,24 +57,32 @@ public class ControladorCategorias {
     }
 
     //---------------------------------------------------
-    @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
+    @RequestMapping(value = "mostrarProductosPorCategoria", method = RequestMethod.POST)
     public String mostrarProductosCategoria(String idCateg, Model modelo) {
-        ProductoModel producto = (ProductoModel) servicioProducto.getAll();
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> productosCateg = new ArrayList<>();
 
-        if (producto != null) {
-            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-            productos.add(producto);
+        if (!productos.isEmpty()) {
 
-            for(ProductoModel prod : productos){
-                if(String.valueOf(prod.getIdCateg().getId()).equals(idCateg)){
-
+            for (int i = 0; i < productos.size(); i++) {
+                if ((productos.get(i).getIdCateg().getId() == Long.parseLong(idCateg))) {
+                    System.out.println(productos.get(i).getNombre() + "---" + productos.get(i).getIdCateg().getId());
+                    productosCateg.add(productos.get(i));
                 }
             }
 
-            modelo.addAttribute("listaP", productos);
+            if (productosCateg.isEmpty()) {
+                modelo.addAttribute("listaC", servicioCategoria.getAll());
+                modelo.addAttribute("listaCarro", servicioCarro.getAll());
+                modelo.addAttribute("listaTotal", generarTotal());
+                return "Cliente_Categorias";
+            }
+
+            modelo.addAttribute("listaP", productosCateg);
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
             modelo.addAttribute("listaTotal", generarTotal());
-            return "/Cliente_ProductoSeleccionado";
+            return "Cliente_Productos";
+
         } else {
             modelo.addAttribute("listaC", servicioCategoria.getAll());
             modelo.addAttribute("listaCarro", servicioCarro.getAll());
