@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ControladorProductos {
-
+    
     @Autowired
     private ServicioAdmin servicioAdmin;
     @Autowired
@@ -31,7 +31,6 @@ public class ControladorProductos {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-    
 
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
@@ -42,9 +41,9 @@ public class ControladorProductos {
         ArrayList<Integer> totales = new ArrayList<Integer>();
         totales.add(total);
         return totales;
-
+        
     }
-
+    
     @GetMapping("/Cliente_Productos")
     String Cliente_Productos(Model modelo) {
         modelo.addAttribute("listaP", servicioProducto.getAll());
@@ -52,11 +51,11 @@ public class ControladorProductos {
         modelo.addAttribute("listaTotal", generarTotal());
         return "Cliente_Productos";
     }
-
+    
     @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-
+        
         if (producto != null) {
             ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
             productos.add(producto);
@@ -70,14 +69,14 @@ public class ControladorProductos {
             modelo.addAttribute("listaTotal", generarTotal());
             return "Cliente_Productos";
         }
-
+        
     }
-
+    
     @GetMapping(value = "/mostrarProducto/{id}")
     public String mostrarProducto(@PathVariable String id, Model modelo) {
-
+        
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-
+        
         try {
             ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
             productos.add(producto);
@@ -91,10 +90,10 @@ public class ControladorProductos {
         }
         return "/Cliente_ProductoSeleccionado";
     }
-
+    
     @GetMapping(value = "/eliminarDelCarroProducto/{id}")
     public String eliminarDelCarro(@PathVariable String id, Model modelo) {
-
+        
         try {
             servicioCarro.eliminar(Long.parseLong(id));
         } catch (NumberFormatException e) {
@@ -102,5 +101,37 @@ public class ControladorProductos {
         return "redirect:/Cliente_Productos";
     }
     
+    @RequestMapping(value = "cambiarCantidadProd", method = RequestMethod.POST)
+    public String cambiarCantidadProducto(int idProducto, int idCateg, int cantProducto, Model modelo) {
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
+        CarroModel prodCarro = null;
+        
+        for (CarroModel x : carros) {
+            if (x.getIdProductoCarro().getIdProducto().equals(Long.valueOf(idProducto))) {
+                prodCarro = x;
+                break;
+            }
+        }
+        
+        if (prodCarro != null) {
+            prodCarro.setCantidad(cantProducto);
+            servicioCarro.guardar(prodCarro);
+        }
+        
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> listaP = new ArrayList<>();
+        
+        for (ProductoModel x : productos) {
+            if (x.getIdCateg().getId().equals(Long.valueOf(idCateg))) {
+                listaP.add(x);
+            }
+        }
+        
+        modelo.addAttribute("listaP", listaP);
+        modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
+        
+        return "/Cliente_Productos";
+    }
     
 }

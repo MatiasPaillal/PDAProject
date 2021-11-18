@@ -53,7 +53,7 @@ public class ControladorProductoSeleccionado {
 
     @RequestMapping(value = "mostrarProducto/agregarProductoCarro", method = RequestMethod.POST)
     public String agregarProductoCarro(String id, int cantidad, Model modelo) {
-        ArrayList<CarroModel> carros =(ArrayList<CarroModel>) servicioCarro.getAll();
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
         CarroModel prodCarro = null;
         for (CarroModel x : carros) {
             if (x.getIdProductoCarro().getIdProducto().equals(Long.parseLong(id))) {
@@ -116,6 +116,74 @@ public class ControladorProductoSeleccionado {
             return "Cliente_Categorias";
         }
 
+    }
+
+    @RequestMapping(value = "mostrarProducto/cambiarCantidadProdSelec", method = RequestMethod.POST)
+    public String cambiarCantidadProducto(int idProducto, int idProdSelec, int cantProducto, Model modelo) {
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
+        CarroModel prodCarro = null;
+
+        for (CarroModel x : carros) {
+            if (x.getIdProductoCarro().getIdProducto().equals(Long.valueOf(idProducto))) {
+                prodCarro = x;
+                break;
+            }
+        }
+
+        if (prodCarro != null) {
+            prodCarro.setCantidad(cantProducto);
+            servicioCarro.guardar(prodCarro);
+        }
+
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> listaP = new ArrayList<>();
+
+        for (ProductoModel x : productos) {
+            if (x.getIdProducto().equals(Long.valueOf(idProdSelec))) {
+                listaP.add(x);
+                break;
+            }
+        }
+
+        modelo.addAttribute("listaP", listaP);
+        modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
+
+        return "/Cliente_ProductoSeleccionado";
+    }
+    
+    @RequestMapping(value = "cambiarCantidadProdSelec", method = RequestMethod.POST)
+    public String cambiarCantidadProducto2(int idProducto, int idProdSelec, int cantProducto, Model modelo) {
+        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
+        CarroModel prodCarro = null;
+
+        for (CarroModel x : carros) {
+            if (x.getIdProductoCarro().getIdProducto().equals(Long.valueOf(idProducto))) {
+                prodCarro = x;
+                break;
+            }
+        }
+
+        if (prodCarro != null) {
+            prodCarro.setCantidad(cantProducto);
+            servicioCarro.guardar(prodCarro);
+        }
+
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> listaP = new ArrayList<>();
+
+        for (ProductoModel x : productos) {
+            if (x.getIdProducto().equals(Long.valueOf(idProdSelec))) {
+                listaP.add(x);
+                break;
+            }
+        }
+
+        modelo.addAttribute("listaP", listaP);
+        modelo.addAttribute("listaCarro", servicioCarro.getAll());
+        modelo.addAttribute("listaTotal", generarTotal());
+
+        return "/Cliente_ProductoSeleccionado";
     }
 
 }
