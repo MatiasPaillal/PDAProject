@@ -5,7 +5,6 @@
  */
 package com.example.demo.Admin.controladores;
 
-import com.example.demo.Admin.modelo.CarroModel;
 import com.example.demo.Admin.modelo.CategoriaModel;
 import com.example.demo.Admin.modelo.ProductoModel;
 import com.example.demo.Admin.servicios.ServicioAdmin;
@@ -32,19 +31,8 @@ public class ControladorAdminOpciones {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-    private int total= 12;
-
-    public ArrayList <Integer> generarTotal(){
-        Integer total=0;
-        ArrayList<CarroModel> carros = (ArrayList <CarroModel>) servicioCarro.getAll();
-       for(CarroModel carro:carros){
-       total+=carro.getIdProductoCarro().getPrecio()*carro.getCantidad();
-       }
-        ArrayList<Integer> totales= new ArrayList<Integer>();
-        totales.add(total);
-        return totales;
-    
-    }
+     
+ 
 
 
     //***************************GUARDAR PRODUCTO*********************************************
@@ -94,17 +82,18 @@ public class ControladorAdminOpciones {
 
     //************ACTUALIZAR ADMIN*************
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
-    public String actualizarProducto(String id, String url, String nombre, String precio, String categoria, Model modelo) {
+    public String actualizarProducto(String admin,String id, String url, String nombre, String precio, String categoria, Model modelo) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
-
+        System.out.println(admin);
         ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, Integer.parseInt(precio), categoriaProducto, url);
 
         servicioProducto.guardar(producto);
-        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
+        modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
+        
         modelo.addAttribute("lista", servicioProducto.getAll());
         modelo.addAttribute("listaC", servicioCategoria.getAll());
 
-        return "redirect:opciones";
+        return "redirect:opciones/"+admin;
     }
  @GetMapping("/barra")
     String IngresarAdmin() {

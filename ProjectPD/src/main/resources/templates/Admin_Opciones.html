@@ -164,7 +164,9 @@
                         <div class="form-group">
                             <label for="precioProducto" class="col-form-label">Precio:</label>
                             <input type="text" class="form-control" id="precioProducto" name="precio">
-                        </div>
+                        </div>                      
+                            <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                         
 
                         <div class="form-group">
                             <label for="categoriaProducto" class="col-form-label">Categoria:</label>
