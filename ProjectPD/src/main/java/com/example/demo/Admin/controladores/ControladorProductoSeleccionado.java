@@ -151,7 +151,7 @@ public class ControladorProductoSeleccionado {
 
         return "/Cliente_ProductoSeleccionado";
     }
-    
+
     @RequestMapping(value = "cambiarCantidadProdSelec", method = RequestMethod.POST)
     public String cambiarCantidadProducto2(int idProducto, int idProdSelec, int cantProducto, Model modelo) {
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -184,6 +184,58 @@ public class ControladorProductoSeleccionado {
         modelo.addAttribute("listaTotal", generarTotal());
 
         return "/Cliente_ProductoSeleccionado";
+    }
+
+    @RequestMapping(value = "volverAtrasProdSelec", method = RequestMethod.POST)
+    public String volverAtras(int idCateg, Model modelo) {
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> productosCateg = new ArrayList<>();
+
+        if (!productos.isEmpty()) {
+
+            for (int i = 0; i < productos.size(); i++) {
+                if ((productos.get(i).getIdCateg().getId().equals(Long.valueOf(idCateg)))) {
+                    productosCateg.add(productos.get(i));
+                }
+            }
+
+            modelo.addAttribute("listaP", productosCateg);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Productos";
+
+        } else {
+            modelo.addAttribute("listaC", servicioCategoria.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Categorias";
+        }
+    }
+
+    @RequestMapping(value = "mostrarProducto/volverAtrasProdSelec", method = RequestMethod.POST)
+    public String volverAtras2(int idCateg, Model modelo) {
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> productosCateg = new ArrayList<>();
+
+        if (!productos.isEmpty()) {
+
+            for (int i = 0; i < productos.size(); i++) {
+                if ((productos.get(i).getIdCateg().getId().equals(Long.valueOf(idCateg)))) {
+                    productosCateg.add(productos.get(i));
+                }
+            }
+
+            modelo.addAttribute("listaP", productosCateg);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Productos";
+
+        } else {
+            modelo.addAttribute("listaC", servicioCategoria.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Categorias";
+        }
     }
 
 }

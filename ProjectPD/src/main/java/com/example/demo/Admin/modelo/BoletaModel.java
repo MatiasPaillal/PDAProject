@@ -22,10 +22,14 @@ public class BoletaModel {
     @JoinColumn(nullable = false, referencedColumnName = "rutTienda")
     private TiendaModel rutTienda;
 
-    public BoletaModel(LocalDateTime fechaEmision, Integer total, TiendaModel rutTienda) {
+    @Column(columnDefinition = "text")
+    private String productosCantidad;
+
+    public BoletaModel(LocalDateTime fechaEmision, Integer total, TiendaModel rutTienda, String productosCantidad) {
         this.fechaEmision = fechaEmision;
         this.total = total;
         this.rutTienda = rutTienda;
+        this.productosCantidad = productosCantidad;
     }
 
     public Long getNroBoleta() {
@@ -60,6 +64,14 @@ public class BoletaModel {
         this.rutTienda = rutTienda;
     }
 
+    public String getProductosCantidad() {
+        return productosCantidad;
+    }
+
+    public void setProductosCantidad(String productosCantidad) {
+        this.productosCantidad = productosCantidad;
+    }
+
     public String fechaEmisionFormateada() {
         String fechaFormateada = this.fechaEmision.getDayOfMonth() + "-"
                 + this.fechaEmision.getMonthValue() + "-"
@@ -67,7 +79,7 @@ public class BoletaModel {
                 + this.fechaEmision.getHour() + ":"
                 + this.fechaEmision.getMinute() + ":"
                 + this.fechaEmision.getSecond();
-        
+
         return fechaFormateada;
     }
 
