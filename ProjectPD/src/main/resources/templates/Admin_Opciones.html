@@ -85,7 +85,7 @@
             <label class="col-form-label">ID del producto:</label>
             <input id="iD" name="codigo" required="" placeholder="codigo">
             <input type="submit" value="Buscar" class="btn btn-primary" style="margin-left: 15px"></th>
-
+          <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
         </form>
     </div>
                       
@@ -217,7 +217,7 @@
                                 </select>
                         </div>
                         
-                         
+                         <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
                         <div class="modal-footer">
 
                             <input type="submit" value="Agregar" class="btn btn-primary" style="margin-left: 15px">

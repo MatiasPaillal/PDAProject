@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorAdminOpciones {
@@ -31,42 +33,20 @@ public class ControladorAdminOpciones {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-     
- 
-
 
     //***************************GUARDAR PRODUCTO*********************************************
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
-    public String guardarProducto(String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
+    public String guardarProducto(String admin,String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
+        
         CategoriaModel categoria = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categorias)));
-
         ProductoModel producto = new ProductoModel(fnombre, Integer.parseInt(fprecio), categoria, fURL);
-
         servicioProducto.guardar(producto);
-        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
-        modelo.addAttribute("lista", servicioProducto.getAll());
-        modelo.addAttribute("listaC", servicioCategoria.getAll());
+        
+        ModelAndView m = new ModelAndView("forward:/Opciones");
+        m.addObject("admin", admin);
+      
 
         return "redirect:opciones";
-    }
-
-    //************CONSULTA PRODUCTO ADMIN*************
-    @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
-    public String consultaProductos(String codigo, Model modelo) {
-        ProductoModel producto = servicioProducto.obtener(Long.parseLong(codigo));
-        modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
-        modelo.addAttribute("listaC", servicioCategoria.getAll());
-        ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-        productos.add(producto);
-
-        if (producto != null) {
-            modelo.addAttribute("lista", productos);
-            return "Admin_Opciones";
-        } else {
-            modelo.addAttribute("lista", servicioProducto.getAll());
-            return "Admin_Opciones";
-        }
-
     }
 
     //************ELIMINAR PRODUCTO*************
@@ -82,21 +62,46 @@ public class ControladorAdminOpciones {
 
     //************ACTUALIZAR ADMIN*************
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
-    public String actualizarProducto(String admin,String id, String url, String nombre, String precio, String categoria, Model modelo) {
+    public ModelAndView actualizarProducto(String admin, String id, String url, String nombre, String precio, String categoria, Model modelo) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
         System.out.println(admin);
         ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, Integer.parseInt(precio), categoriaProducto, url);
-
         servicioProducto.guardar(producto);
-        modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
+        ModelAndView m = new ModelAndView("forward:/Opciones");
+        m.addObject("admin", admin);
+
+        return m;
+    }
+
+    //************CONSULTA PRODUCTO ADMIN*************
+    @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
+    public ModelAndView consultaProductos(String codigo, String admin, Model modelo) {
+        ModelAndView m = new ModelAndView("forward:/Opciones");
+
+        m.addObject("codigo", codigo);
+        m.addObject("admin", admin);
+        return m;
+
+    }
+
+    @RequestMapping(value = "Opciones")
+    public String verOpc1iones(@ModelAttribute("codigo") String codigo, @ModelAttribute("admin") String admin, Model modelo) {
         
-        modelo.addAttribute("lista", servicioProducto.getAll());
+        
+        if (!codigo.equals("")&& servicioProducto.obtener(Long.parseLong(codigo))!=null) {
+            
+            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
+            productos.add(servicioProducto.obtener(Long.parseLong(codigo)));
+           
+            modelo.addAttribute("lista", productos);
+        } else {
+            modelo.addAttribute("lista", servicioProducto.getAll());
+        }
+
+        modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
         modelo.addAttribute("listaC", servicioCategoria.getAll());
 
-        return "redirect:opciones/"+admin;
-    }
- @GetMapping("/barra")
-    String IngresarAdmin() {
-        return "barra";
+        return "Admin_Opciones";
+
     }
 }

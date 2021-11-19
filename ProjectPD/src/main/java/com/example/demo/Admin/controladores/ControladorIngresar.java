@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,7 +74,7 @@ public class ControladorIngresar {
     }
 
     @RequestMapping(value = "opciones")
-    public String guardarProducto(String nombre, Model modelo) {
+    public String verOpciones(String nombre, Model modelo) {
         modelo.addAttribute("listaAdmin", servicioAdmin.getAll());
         modelo.addAttribute("lista", servicioProducto.getAll());
         modelo.addAttribute("listaC", servicioCategoria.getAll());
@@ -81,16 +82,8 @@ public class ControladorIngresar {
         return "Admin_Opciones";
 
     }
-    
-     @RequestMapping(value = "opciones/{admin}")
-    public String redireccionarOpciones(@PathVariable String admin, Model modelo) {
-        modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
-        modelo.addAttribute("lista", servicioProducto.getAll());
-        modelo.addAttribute("listaC", servicioCategoria.getAll());
-
-        return "Admin_Opciones";
-
-    }
+     
+   
     
 
 }

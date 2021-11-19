@@ -112,14 +112,6 @@ public class ControladorBoletas {
         return "Admins";
     }
      */
-    @RequestMapping(value = "buscarBoleta", method = RequestMethod.POST)
-    public String buscarBoleta(String numero) {
-        if ("11111".equals(numero)) {
-            return "Admin_Boleta";
-        }
-
-        return "Admin_BuscarBoletas";
-
-    }
+    
 
 }
