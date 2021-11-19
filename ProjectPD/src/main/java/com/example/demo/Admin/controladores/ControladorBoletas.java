@@ -34,18 +34,7 @@ public class ControladorBoletas {
 
     @Autowired
     private ServicioBoleta servicioBoleta;
-
-    public ArrayList<Integer> generarTotal() {
-        Integer total = 0;
-        ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
-        for (CarroModel carro : carros) {
-            total += carro.getIdProductoCarro().getPrecio() * carro.getCantidad();
-        }
-        ArrayList<Integer> totales = new ArrayList<Integer>();
-        totales.add(total);
-        return totales;
-
-    }
+ 
 
     @GetMapping("/Cliente_Boleta")
     String Cliente_Boleta(Model modelo) {

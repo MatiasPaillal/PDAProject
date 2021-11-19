@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,7 +31,7 @@ public class ControladorIngresar {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-    private int total= 12;
+    
 
 
     @GetMapping("/")
@@ -38,19 +39,7 @@ public class ControladorIngresar {
 
         return "Ingresar";
     }
-    public ArrayList <Integer> generarTotal(){
-        Integer total=0;
-        ArrayList<CarroModel> carros = (ArrayList <CarroModel>) servicioCarro.getAll();
-       for(CarroModel carro:carros){
-       total+=carro.getIdProductoCarro().getPrecio()*carro.getCantidad();
-       }
-        ArrayList<Integer> totales= new ArrayList<Integer>();
-        totales.add(total);
-        return totales;
-    
-    }
-
-
+  
     @GetMapping("/Admin")
     String IngresarAdmin() {
         return "IngresarAdmin";
@@ -92,5 +81,16 @@ public class ControladorIngresar {
         return "Admin_Opciones";
 
     }
+    
+     @RequestMapping(value = "opciones/{admin}")
+    public String redireccionarOpciones(@PathVariable String admin, Model modelo) {
+        modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
+        modelo.addAttribute("lista", servicioProducto.getAll());
+        modelo.addAttribute("listaC", servicioCategoria.getAll());
+
+        return "Admin_Opciones";
+
+    }
+    
 
 }

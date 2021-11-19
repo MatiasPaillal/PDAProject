@@ -31,6 +31,7 @@ public class ControladorProductoSeleccionado {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
+    
 
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;

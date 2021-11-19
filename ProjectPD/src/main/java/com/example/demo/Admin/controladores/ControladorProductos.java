@@ -31,8 +31,7 @@ public class ControladorProductos {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
-    private int total = 12;
-    
+
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
