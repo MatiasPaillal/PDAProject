@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Admin.servicios.ServicioCarro;
 import com.example.demo.Admin.servicios.ServicioTienda;
 import com.example.demo.Boleta;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 /**
@@ -30,7 +31,7 @@ public class ControladorBoletas {
 
     @Autowired
     private ServicioTienda servicioTienda;
-    
+
     @Autowired
     private ServicioBoleta servicioBoleta;
 
@@ -61,19 +62,55 @@ public class ControladorBoletas {
     @RequestMapping(value = "realizarCompra", method = RequestMethod.POST)
     public String generarBoleta(Model modelo) {
         TiendaModel tienda = servicioTienda.getAll().get(0);
+        String productosCantidad = "";
+        int totalCompra = 0;
 
         ArrayList<CarroModel> carro = (ArrayList<CarroModel>) servicioCarro.getAll();
-        int totalCompra = 0;
 
         for (CarroModel producto : carro) {
             totalCompra += producto.getIdProductoCarro().getPrecio() * producto.getCantidad();
+            productosCantidad += producto.getIdProductoCarro().getIdProducto() + ";"; //Simbolo que separa un codigo de producto del siguiente.
         }
 
-        BoletaModel boleta = new BoletaModel(LocalDateTime.now(), totalCompra, tienda);
+        productosCantidad += ":"; //Simbolo que separa los codigos de los productos de las cantidades de estos.
+
+        for (CarroModel producto : carro) {
+            productosCantidad += producto.getCantidad() + ";"; //Simbolo que separa una cantidad de producto de la siguiente.
+        }
+
+        BoletaModel boleta = new BoletaModel(LocalDateTime.now(), totalCompra, tienda, productosCantidad);
         servicioBoleta.guardar(boleta);
-        
-        
-        
+
+        modelo.addAttribute("totalCompra", totalCompra);
+        modelo.addAttribute("boleta", boleta);
+        modelo.addAttribute("listaP", servicioCarro.getAll());
+        modelo.addAttribute("infoTienda", servicioTienda.getAll());
+        servicioCarro.vaciarTabla();
+        return "Cliente_Boleta";
+    }
+
+    @RequestMapping(value = "mostrarProducto/realizarCompra", method = RequestMethod.POST)
+    public String generarBoleta2(Model modelo) {
+        TiendaModel tienda = servicioTienda.getAll().get(0);
+        String productosCantidad = "";
+        int totalCompra = 0;
+
+        ArrayList<CarroModel> carro = (ArrayList<CarroModel>) servicioCarro.getAll();
+
+        for (CarroModel producto : carro) {
+            totalCompra += producto.getIdProductoCarro().getPrecio() * producto.getCantidad();
+            productosCantidad += producto.getIdProductoCarro().getIdProducto() + ";"; //Simbolo que separa un codigo de producto del siguiente.
+        }
+
+        productosCantidad += ":"; //Simbolo que separa los codigos de los productos de las cantidades de estos.
+
+        for (CarroModel producto : carro) {
+            productosCantidad += producto.getCantidad() + ";"; //Simbolo que separa una cantidad de producto de la siguiente.
+        }
+
+        BoletaModel boleta = new BoletaModel(LocalDateTime.now(), totalCompra, tienda, productosCantidad);
+        servicioBoleta.guardar(boleta);
+
         modelo.addAttribute("totalCompra", totalCompra);
         modelo.addAttribute("boleta", boleta);
         modelo.addAttribute("listaP", servicioCarro.getAll());

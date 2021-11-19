@@ -66,7 +66,6 @@ public class ControladorCategorias {
 
             for (int i = 0; i < productos.size(); i++) {
                 if ((productos.get(i).getIdCateg().getId() == Long.parseLong(idCateg))) {
-                    System.out.println(productos.get(i).getNombre() + "---" + productos.get(i).getIdCateg().getId());
                     productosCateg.add(productos.get(i));
                 }
             }
