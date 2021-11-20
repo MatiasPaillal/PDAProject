@@ -117,7 +117,7 @@ public class ControladorBoletas {
 
     @RequestMapping(value = "buscarBoleta", method = RequestMethod.POST)
     public String buscarBoleta(String admin, String nroBoleta, Model modelo) {
-        TiendaModel tienda = servicioTienda.getAll().get(0);
+     
         int totalCompra = 0;
         BoletaModel boleta = servicioBoleta.obtener(Long.parseLong(nroBoleta));
         String[] partes = boleta.getProductosCantidad().split(":");
