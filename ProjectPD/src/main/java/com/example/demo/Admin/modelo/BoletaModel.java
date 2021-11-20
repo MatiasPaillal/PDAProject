@@ -32,6 +32,10 @@ public class BoletaModel {
         this.productosCantidad = productosCantidad;
     }
 
+    public BoletaModel() {
+    }
+    
+
     public Long getNroBoleta() {
         return this.nroBoleta;
     }

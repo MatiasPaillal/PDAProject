@@ -50,14 +50,17 @@ public class ControladorAdminOpciones {
     }
 
     //************ELIMINAR PRODUCTO*************
-    @GetMapping(value = "/eliminar/{id}")
-    public String eliminarProducto(@PathVariable String id, Model modelo) {
-
+    @GetMapping(value = "/eliminar/{id}/{admin}")
+    public ModelAndView eliminarProducto(@PathVariable String id, @PathVariable String admin, Model modelo) {
+         System.out.println(admin);
+        ModelAndView m = new ModelAndView("forward:/Opciones");
+         
+        m.addObject("admin", admin);
         try {
             servicioProducto.eliminar(Long.parseLong(id));
         } catch (NumberFormatException e) {
         }
-        return "redirect:/opciones";
+        return m;
     }
 
     //************ACTUALIZAR ADMIN*************
