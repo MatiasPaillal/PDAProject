@@ -115,47 +115,6 @@ public class ControladorBoletas {
         return "Cliente_Boleta";
     }
 
-    /*          @RequestMapping(value = "mostrarProducto", method = RequestMethod.POST)
-    public String mostrarProductoCategoria(String nombre, Model modelo) {
-        
-      ArrayList <ProductoModel> productos= (ArrayList <ProductoModel>) servicioProducto.getAll();
-      
-      for(int i=0; i<productos.size();i++){
-      if(nombre==0)
-      
-      
-      }
-             
-       if(producto != null){
-       ArrayList<ProductoModel> productos= new ArrayList<ProductoModel>();
-       productos.add(producto); 
-        modelo.addAttribute("listaP", productos);
-        return "/Cliente_ProductoSeleccionado";
-       }else{
-           modelo.addAttribute("listaP", servicioProducto.getAll());
-        return "Cliente_Productos";
-       }
-     
-    
-    @RequestMapping("/Admin_Opciones")
-     public String mostrarAdmin(Model modelo) {
-        modelo.addAttribute("lista", servicioProducto.getAll());
-        return "Admin_Opciones";
-    }
-   
-  
-      
-     @GetMapping("/guardar/{id}")
-     public String mostrarAdminGuardad(@PathVariable("id") int id, Model modelo) {
-        if(id!=0){
-            modelo.addAttribute("admin", servicioAdmin.obtener(id));
-        }else{
-            modelo.addAttribute("admin", new Administrador());
-        }
-        
-        return "Admins";
-    }
-     */
     @RequestMapping(value = "buscarBoleta", method = RequestMethod.POST)
     public String buscarBoleta(String admin, String nroBoleta, Model modelo) {
         TiendaModel tienda = servicioTienda.getAll().get(0);
