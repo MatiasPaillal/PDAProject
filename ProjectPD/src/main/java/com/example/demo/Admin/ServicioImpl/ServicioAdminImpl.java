@@ -5,7 +5,7 @@
  */
 package com.example.demo.Admin.ServicioImpl;
 
-import com.example.demo.Admin.modelo.Administrador;
+import com.example.demo.Admin.modelo.AdministradorModel;
 import com.example.demo.Admin.servicios.ServicioAdmin;
 import com.example.demo.Admin.Commons.servicioGenImpl;
 import com.example.demo.Admin.interfaz.InterfazAdmin;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Service;
  * @author matias
  */
 @Service
-public class ServicioAdminImpl extends servicioGenImpl<Administrador, String> implements ServicioAdmin{
+public class ServicioAdminImpl extends servicioGenImpl<AdministradorModel, String> implements ServicioAdmin{
     
     @Autowired
     private InterfazAdmin interfazAdmin;
 
     @Autowired
-    public CrudRepository<Administrador, String> obtener(){
+    public CrudRepository<AdministradorModel, String> obtener(){
     
     return interfazAdmin;
     }

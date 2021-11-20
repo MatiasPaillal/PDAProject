@@ -15,7 +15,7 @@ public class RegistrosModificacionesModel {
 
     @ManyToOne()
     @JoinColumn(nullable = false, referencedColumnName = "usuario")
-    private Administrador administrador_usuario;
+    private AdministradorModel administrador_usuario;
 
     @ManyToOne()
     @JoinColumn(nullable = false, referencedColumnName = "idProducto")
@@ -37,11 +37,11 @@ public class RegistrosModificacionesModel {
         this.modificacion = modificacion;
     }
 
-    public Administrador getAdministrador_usuario() {
+    public AdministradorModel getAdministrador_usuario() {
         return this.administrador_usuario;
     }
 
-    public void setAdministrador_usuario(Administrador administrador_usuario) {
+    public void setAdministrador_usuario(AdministradorModel administrador_usuario) {
         this.administrador_usuario = administrador_usuario;
     }
 
