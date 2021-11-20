@@ -21,7 +21,7 @@ public class TiendaModel {
 
     @ManyToOne
     @JoinColumn(nullable = false, referencedColumnName = "usuario")
-    private Administrador administrador_usuario;
+    private AdministradorModel administrador_usuario;
 
     public String getRutTienda() {
         return this.rutTienda;
@@ -55,11 +55,11 @@ public class TiendaModel {
         this.telefono = telefono;
     }
 
-    public Administrador getAdministrador_usuario() {
+    public AdministradorModel getAdministrador_usuario() {
         return this.administrador_usuario;
     }
 
-    public void setAdministrador_usuario(Administrador administrador_usuario) {
+    public void setAdministrador_usuario(AdministradorModel administrador_usuario) {
         this.administrador_usuario = administrador_usuario;
     }
 

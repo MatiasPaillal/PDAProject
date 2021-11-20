@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "administrador")
-public class Administrador {
+public class AdministradorModel {
 
     @Id
     @Column(length = 15)
@@ -26,14 +26,14 @@ public class Administrador {
     @Column(length = 80, nullable = false)
     private String nombre;
 
-    public Administrador(String usuario, String password, String nombre) {
+    public AdministradorModel(String usuario, String password, String nombre) {
 
         this.usuario = usuario;
         this.password = password;
         this.nombre = nombre;
     }
 
-    public Administrador() {
+    public AdministradorModel() {
     }
 
     public String getNombre() {

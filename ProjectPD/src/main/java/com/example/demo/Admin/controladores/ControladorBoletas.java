@@ -14,11 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Admin.servicios.ServicioCarro;
 import com.example.demo.Admin.servicios.ServicioProducto;
 import com.example.demo.Admin.servicios.ServicioTienda;
-import com.example.demo.Boleta;
 
 import java.time.LocalDateTime;
 
@@ -45,12 +43,6 @@ public class ControladorBoletas {
     String Cliente_Boleta(Model modelo) {
         modelo.addAttribute("infoTienda", servicioTienda.getAll());
         return "Cliente_Boleta";
-    }
-
-    @GetMapping("/Boletas")
-    String Boleta(@RequestParam(name = "Boleta", required = false, defaultValue = "asda") Boleta boleta, Model modelo) {
-        //modelo.addAttribute(this.boleta);
-        return "Boleta";
     }
 
     @RequestMapping(value = "realizarCompra", method = RequestMethod.POST)

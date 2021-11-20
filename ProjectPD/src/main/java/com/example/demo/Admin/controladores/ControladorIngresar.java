@@ -5,7 +5,7 @@
  */
 package com.example.demo.Admin.controladores;
 
-import com.example.demo.Admin.modelo.Administrador;
+import com.example.demo.Admin.modelo.AdministradorModel;
 import com.example.demo.Admin.modelo.CarroModel;
 import com.example.demo.Admin.servicios.ServicioAdmin;
 import com.example.demo.Admin.servicios.ServicioCarro;
@@ -57,7 +57,7 @@ public class ControladorIngresar {
     @RequestMapping(value = "consultaAdmin", method = RequestMethod.POST)
     public String admin_logear(String usuario, String password, Model modelo) {
 
-        Administrador admins = (Administrador) servicioAdmin.obtener(usuario);
+        AdministradorModel admins = (AdministradorModel) servicioAdmin.obtener(usuario);
 
         try {
             if (admins.getPassword().equals(password)) {
