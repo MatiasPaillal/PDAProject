@@ -56,8 +56,8 @@ public class ControladorCategorias {
      * Metodo el cual se encarga de redireccionar a la vista del cliente de
      * categorias
      *
-     * @param modelo El parametro modelo permite almacenar datos para luego
-     * enviarlos a las vistas HTML
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
      * @return la vista HTML Cliente_Categorias a la cual accede el cliente,
      * ademas de los datos de una lista de categorias, y una lista con el
      * contenido de un carro de compras y su total. Datos los cuales estan
@@ -74,17 +74,16 @@ public class ControladorCategorias {
     }
 
     /**
-     * Metodo el cual se encarga redireccionar a una vista con todos los
-     * productos de una categoria en caso de que esta contenga productos
+     * Metodo el cual se encarga obtener todos los productos de una categoria
+     * seleccionada
      *
      * @param idCateg Este parametro representa el atributo categoria de un
      * objeto de la clase Producto
-     * @param modelo El parametro modelo permite almacenar datos para luego
-     * enviarlos a las vistas HTML
-     * @return la vista HTML Cliente_Productos o Cliente_Categorias, a la cual
-     * accede el cliente. Ademas de los datos de una lista de categorias, y una
-     * lista con el contenido de un carro de compras y su total. Datos los
-     * cuales estan almacenados en el modelo
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
+     * @return En caso de que halla productos con la categoria seleccionada se
+     * redireccionara la la vista con estos productos, en caso contrario se
+     * redireccionara a la vista de categorias.
      */
     @RequestMapping(value = "mostrarProductosPorCategoria", method = RequestMethod.POST)
     public String mostrarProductosCategoria(String idCateg, Model modelo) {
@@ -156,9 +155,22 @@ public class ControladorCategorias {
         } catch (NumberFormatException e) {
         }
         return "redirect:/Cliente_Categorias";
-    }
-    
 
+    }
+
+    /**
+     * Este metodo se encarga de consultar los datos de un producto a la base de
+     * datos
+     *
+     * @param id Este parametro representa el atributo idProducto que tendra un
+     * objeto de la clase Producto
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
+     * @return En caso de que se encuentre el producto se redireccionara a la
+     * vista del producto seleccionado, en caso contrario redireccionara a la
+     * vista de categorias a la cual accede el cliente
+     *
+     */
     @RequestMapping(value = "mostrarProductoCateg", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
