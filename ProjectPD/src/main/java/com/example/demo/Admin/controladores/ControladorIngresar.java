@@ -11,6 +11,7 @@ import com.example.demo.Admin.servicios.ServicioAdmin;
 import com.example.demo.Admin.servicios.ServicioCarro;
 import com.example.demo.Admin.servicios.ServicioCategoria;
 import com.example.demo.Admin.servicios.ServicioProducto;
+import com.example.demo.Admin.servicios.ServicioRegistrosModificaciones;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ public class ControladorIngresar {
     private ServicioCategoria servicioCategoria;
     @Autowired
     private ServicioCarro servicioCarro;
+    @Autowired
+    private ServicioRegistrosModificaciones servicioRegistrosModificaciones;
     
 
 
@@ -65,6 +68,8 @@ public class ControladorIngresar {
                 modelo.addAttribute("listaAdmin", servicioAdmin.obtener(usuario));
                 modelo.addAttribute("lista", servicioProducto.getAll());
                 modelo.addAttribute("listaC", servicioCategoria.getAll());
+                modelo.addAttribute("listaHistorial", servicioRegistrosModificaciones.getAll());
+                
                 return "Admin_Opciones";
             }
         } catch (NullPointerException e) {
