@@ -1,5 +1,6 @@
 package com.example.demo.Admin.modelo;
 
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
@@ -13,13 +14,25 @@ public class RegistrosModificacionesModel {
     @Column(length = 25, nullable = false)
     private String modificacion;
 
+    @Column(nullable = false)
+    private LocalDateTime fechaModificacion;
+
     @ManyToOne()
     @JoinColumn(nullable = false, referencedColumnName = "usuario")
     private AdministradorModel administrador_usuario;
 
-    @ManyToOne()
-    @JoinColumn(nullable = false, referencedColumnName = "idProducto")
-    private ProductoModel idProducto;
+    @Column(nullable = false)
+    private String idProducto;
+
+    public RegistrosModificacionesModel() {
+    }
+
+    public RegistrosModificacionesModel(String modificacion, LocalDateTime fechaModificacion, AdministradorModel administrador_usuario, String idProducto) {
+        this.modificacion = modificacion;
+        this.fechaModificacion = fechaModificacion;
+        this.administrador_usuario = administrador_usuario;
+        this.idProducto = idProducto;
+    }
 
     public Long getIdRegistro() {
         return this.idRegistro;
@@ -37,6 +50,14 @@ public class RegistrosModificacionesModel {
         this.modificacion = modificacion;
     }
 
+    public LocalDateTime getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(LocalDateTime fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
     public AdministradorModel getAdministrador_usuario() {
         return this.administrador_usuario;
     }
@@ -45,11 +66,11 @@ public class RegistrosModificacionesModel {
         this.administrador_usuario = administrador_usuario;
     }
 
-    public ProductoModel getIdProducto() {
+    public String getIdProducto() {
         return this.idProducto;
     }
 
-    public void setIdProducto(ProductoModel idProducto) {
+    public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
 
