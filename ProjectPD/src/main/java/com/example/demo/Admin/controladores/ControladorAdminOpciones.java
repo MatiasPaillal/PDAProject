@@ -60,12 +60,10 @@ public class ControladorAdminOpciones {
      * atributo precio que tendra un objeto de la clase Producto
      * @param categorias El parametro categorias es una cadena que representa el
      * atributo categorias que tendra un objeto de la clase Producto
-     * @param modelo El parametro modelo permite almacenar datos de un para
-     * luego enviarlos a las vistas HTML
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
-    public ModelAndView guardarProducto(String admin, String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
+    public ModelAndView guardarProducto(String admin, String fURL, String fnombre, String fprecio, String categorias) {
 
         CategoriaModel categoria = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categorias)));
         ProductoModel producto = new ProductoModel(fnombre, Integer.parseInt(fprecio), categoria, fURL);
@@ -89,12 +87,10 @@ public class ControladorAdminOpciones {
      * @param producto El parametro producto representa el codigo de un producto
      * @param admin El parametro admin es una cadena que representa el atributo
      * usuario que tendra un objeto de la clase Administrador
-     * @param modelo El parametro modelo permite almacenar datos del
-     * administrador para luego enviarlos a las vistas HTML
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "eliminarProducto")
-    public ModelAndView eliminarProducto(String producto, String admin, Model modelo) {
+    public ModelAndView eliminarProducto(String producto, String admin) {
 
         ModelAndView m = new ModelAndView("forward:/Opciones");
 
@@ -127,12 +123,10 @@ public class ControladorAdminOpciones {
      * atributo precio que tendra un objeto de la clase Producto
      * @param categoria El parametro categoria es una cadena que representa el
      * atributo categorias que tendra un objeto de la clase Producto
-     * @param modelo El parametro modelo permite almacenar datos para luego
-     * enviarlos a las vistas HTML
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
-    public ModelAndView actualizarProducto(String admin, String id, String url, String nombre, int precio, String categoria, Model modelo) {
+    public ModelAndView actualizarProducto(String admin, String id, String url, String nombre, int precio, String categoria) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
 
         ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, precio, categoriaProducto, url);
@@ -155,12 +149,10 @@ public class ControladorAdminOpciones {
      * atributo idProducto que tendra un objeto de la clase Producto
      * @param admin El parametro admin es una cadena que representa el atributo
      * usuario que tendra un objeto de la clase Administrador
-     * @param modelo El parametro modelo permite almacenar datos para luego
-     * enviarlos a las vistas HTML
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
-    public ModelAndView consultaProductos(String codigo, String admin, Model modelo) {
+    public ModelAndView consultaProductos(String codigo, String admin) {
         ModelAndView m = new ModelAndView("forward:/Opciones");
 
         m.addObject("codigo", codigo);
@@ -180,10 +172,7 @@ public class ControladorAdminOpciones {
      * usuario que tendra un objeto de la clase Administrador
      * @param modelo El parametro modelo permite almacenar datos para luego
      * enviarlos a las vistas HTML
-     * @return la vista HTML Admin_Opciones a la cual accede el administrador,
-     * ademas de los datos de un administrador, una lista de productos, una
-     * lista de categorias y una lista con el historial de modificaciones a la
-     * base de datos, almacenados en el modelo
+     * @return la vista de con las opciones permitidas a un Administrador
      */
     @RequestMapping(value = "Opciones")
     public String verOpciones(@ModelAttribute("codigo") String codigo, @ModelAttribute("admin") String admin, Model modelo) {
