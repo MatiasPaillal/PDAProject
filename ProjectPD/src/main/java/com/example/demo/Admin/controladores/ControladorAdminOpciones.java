@@ -25,29 +25,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Esta clase de tipo controlador se encarga de realizar las acciones propias
- * del perfil de administrador y redireccionar a la vista html correspondiente
+ * del perfil de administrador el la vista Admin_Opciones y redireccionar a la vista html correspondiente
  *
  * @author matias
  */
 @Controller
 public class ControladorAdminOpciones {
 
-    //Importacion de metodos del servicio de Admistrador
+    /**
+     * Importacion de metodos del servicio de Admistrador
+     */
     @Autowired
     private ServicioAdmin servicioAdmin;
-
-    //Importacion de metodos del servicio de Productio    
+    
+    
+    /**
+     * Importacion de metodos del servicio de Producto
+     */        
     @Autowired
     private ServicioProducto servicioProducto;
 
-    //Importacion de metodos del servicio de Categoria
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
     @Autowired
     private ServicioCategoria servicioCategoria;
-
-    //Importacion de metodos del servicio de Carro
+    
+    /**
+     * Importacion de metodos del servicio de Carro
+     */
     @Autowired
     private ServicioCarro servicioCarro;
-    //Importacion de metodos del servicio de Registro de modificaciones
+    /**
+     * Importacion de metodos del servicio de RegistrosModificaciones
+     */
+
     @Autowired
     private ServicioRegistrosModificaciones servicioRegistrosModificaciones;
 

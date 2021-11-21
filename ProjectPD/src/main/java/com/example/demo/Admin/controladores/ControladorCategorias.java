@@ -22,15 +22,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Esta clase de tipo controlador se encarga de realizar las acciones propias
+ * del perfil de administrador en la vista de Cliente_Categorias y redireccionar
+ * a la vista html correspondientes
+ *
+ * @author matias
+ */
 @Controller
 public class ControladorCategorias {
 
+    /**
+     * Importacion de metodos del servicio de Admistrador
+     */
     @Autowired
     private ServicioAdmin servicioAdmin;
+
+    /**
+     * Importacion de metodos del servicio de Producto
+     */
     @Autowired
     private ServicioProducto servicioProducto;
+
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
     @Autowired
     private ServicioCategoria servicioCategoria;
+
+    /**
+     * Importacion de metodos del servicio de Carro
+     */
     @Autowired
     private ServicioCarro servicioCarro;
 
@@ -114,27 +136,6 @@ public class ControladorCategorias {
             return "Cliente_Categorias";
         }
     }
-    //---------------------------------------------------
-/*
-    @RequestMapping(value = "mostrarProductoCategoria", method = RequestMethod.POST)
-    public String actualizarProducto(String id, Model modelo) {
-        ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
-
-        if (producto != null) {
-            ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
-            productos.add(producto);
-            modelo.addAttribute("listaP", productos);
-            modelo.addAttribute("listaCarro", servicioCarro.getAll());
-            modelo.addAttribute("listaTotal", generarTotal());
-            return "/Cliente_ProductoSeleccionado";
-        } else {
-            modelo.addAttribute("listaC", servicioCategoria.getAll());
-            modelo.addAttribute("listaCarro", servicioCarro.getAll());
-            modelo.addAttribute("listaTotal", generarTotal());
-            return "Cliente_Categorias";
-        }
-
-    }*/
 
     /**
      * Este metodo permite eliminar un producto de el carro de compras en la
@@ -242,8 +243,7 @@ public class ControladorCategorias {
      * @param cantProducto representa la cantidad de dicho producto
      * @param modelo permite almacenar datos, a los cuales se pueden acceder
      * desde los HTML
-     * @return vista de las categorias, a las cuales accede el
-     * cliente
+     * @return vista de las categorias, a las cuales accede el cliente
      */
     @RequestMapping(value = "cambiarCantidadCateg", method = RequestMethod.POST)
     public String cambiarCantidadProducto(int idProducto, int cantProducto, Model modelo) {

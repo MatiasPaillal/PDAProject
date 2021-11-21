@@ -20,15 +20,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Esta clase de tipo controlador se encarga de realizar las acciones propias
+ * del perfil de administrador en la vista de Cliente_ProductoSeleccionado y
+ * redireccionar a la vista html correspondientes
+ *
+ * @author matias
+ */
 @Controller
 public class ControladorProductoSeleccionado {
 
+    /**
+     * Importacion de metodos del servicio de Admistrador
+     */
     @Autowired
     private ServicioAdmin servicioAdmin;
+
+    /**
+     * Importacion de metodos del servicio de Producto
+     */
     @Autowired
     private ServicioProducto servicioProducto;
+
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
     @Autowired
     private ServicioCategoria servicioCategoria;
+
+    /**
+     * Importacion de metodos del servicio de Carro
+     */
     @Autowired
     private ServicioCarro servicioCarro;
 
@@ -248,7 +270,8 @@ public class ControladorProductoSeleccionado {
      * @param idCateg representa el id de una categoria
      * @param modelo permite almacenar datos, a los cuales se pueden acceder
      * desde los HTML
-     * @return la vista de productos, con los productos de la categoria anteriormente seleccionada
+     * @return la vista de productos, con los productos de la categoria
+     * anteriormente seleccionada
      */
     @RequestMapping(value = "volverAtrasProdSelec", method = RequestMethod.POST)
     public String volverAtras(int idCateg, Model modelo) {
@@ -284,7 +307,8 @@ public class ControladorProductoSeleccionado {
      * @param idCateg representa el id de una categoria
      * @param modelo permite almacenar datos, a los cuales se pueden acceder
      * desde los HTML
-     * @return la vista de productos, con los productos de la categoria anteriormente seleccionada
+     * @return la vista de productos, con los productos de la categoria
+     * anteriormente seleccionada
      */
     @RequestMapping(value = "mostrarProducto/volverAtrasProdSelec", method = RequestMethod.POST)
     public String volverAtras2(int idCateg, Model modelo) {
