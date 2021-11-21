@@ -104,7 +104,14 @@ public class RegistrosModificacionesModel {
     public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
-public String fechaModificacionFormateada() {
+
+    /**
+     * Le da un formato a la fecha de modificación
+     *
+     * @return String con la fecha de modificación con el siguiente formato:
+     * DIA-MES-AÑO HORA:MINUTOS:SEGUNDOS
+     */
+    public String fechaModificacionFormateada() {
         String fechaFormateada = this.fechaModificacion.getDayOfMonth() + "-"
                 + this.fechaModificacion.getMonthValue() + "-"
                 + this.fechaModificacion.getYear() + "   "

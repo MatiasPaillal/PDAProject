@@ -2,23 +2,41 @@ package com.example.demo.Admin.modelo;
 
 import javax.persistence.*;
 
+/**
+ * Clase TiendaModel
+ *
+ * Contiene información de la tienda
+ *
+ * @author Autoservicio
+ *
+ */
 @Entity
 @Table(name = "tienda")
 public class TiendaModel {
-
+    /**
+     * Rut de la tienda
+     */
     @Id
     @Column(length = 10)
     private String rutTienda;
-
+    /**
+     * Nombre de la tienda
+     */
     @Column(length = 45, nullable = false)
     private String nombre;
-
+    /**
+     * Dirección de la tienda
+     */
     @Column(length = 45, nullable = false)
     private String direccion;
-
+    /**
+     * Teléfono de la tienda
+     */
     @Column(nullable = false)
     private Integer telefono;
-
+    /**
+     * Información del administrador
+     */
     @ManyToOne
     @JoinColumn(nullable = false, referencedColumnName = "usuario")
     private AdministradorModel administrador_usuario;

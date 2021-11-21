@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Clase CategoriaModel
  *
- * Contiene información de cada Categoria
+ * Contiene información de cada categoria
  *
  * @author Autoservicio
  *

@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Clase BoletaModel
  *
  *
- * Contiene información de cada Boleta
+ * Contiene información de cada boleta
  *
  * @author Autoservicio
  *

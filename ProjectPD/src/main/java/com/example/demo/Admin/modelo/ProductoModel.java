@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Clase ProductoModel
  *
- * Contiene información de cada Producto
+ * Contiene información de cada producto
  *
  * @author Autoservicio
  *

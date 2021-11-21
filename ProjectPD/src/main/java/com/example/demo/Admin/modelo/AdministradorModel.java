@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Clase AdministradorModel
  *
  *
- * Contiene información de cada Administrador
+ * Contiene información de cada administrador
  *
  * @author Autoservicio
  *

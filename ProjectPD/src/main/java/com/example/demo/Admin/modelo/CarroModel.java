@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Clase CarroModel
  *
- * Contiene información del Carro de compras
+ * Contiene información del carro de compras
  *
  * @author Autoservicio
  *
