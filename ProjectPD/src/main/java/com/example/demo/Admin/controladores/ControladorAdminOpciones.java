@@ -18,9 +18,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,34 +39,34 @@ public class ControladorAdminOpciones {
 
     //***************************GUARDAR PRODUCTO*********************************************
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
-    public String guardarProducto(String admin, String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
+    public ModelAndView guardarProducto(String admin, String fURL, String fnombre, String fprecio, String categorias, Model modelo) {
 
         CategoriaModel categoria = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categorias)));
         ProductoModel producto = new ProductoModel(fnombre, Integer.parseInt(fprecio), categoria, fURL);
         servicioProducto.guardar(producto);
 
-        ModelAndView m = new ModelAndView("forward:/Opciones");
-
-        m.addObject("admin", admin);
-
         ArrayList<ProductoModel> productosBD = (ArrayList<ProductoModel>) servicioProducto.getAll();
         RegistrosModificacionesModel registro = new RegistrosModificacionesModel("Guardó", LocalDateTime.now(), servicioAdmin.obtener(admin), String.valueOf(productosBD.get(productosBD.size() - 1).getIdProducto()));
         servicioRegistrosModificaciones.guardar(registro);
+        
+        ModelAndView m = new ModelAndView("forward:/Opciones");
 
-        return "redirect:opciones";
+        m.addObject("admin", admin);
+       
+        return m;
     }
 
     //************ELIMINAR PRODUCTO*************
-    @GetMapping(value = "/eliminar/{id}/{admin}")
-    public ModelAndView eliminarProducto(@PathVariable String id, @PathVariable String admin, Model modelo) {
+    @RequestMapping(value = "eliminarProducto")
+    public ModelAndView eliminarProducto(String producto, String admin, Model modelo) {
 
         ModelAndView m = new ModelAndView("forward:/Opciones");
 
         m.addObject("admin", admin);
         try {
-            servicioProducto.eliminar(Long.parseLong(id));
+            servicioProducto.eliminar(Long.parseLong(producto));
 
-            RegistrosModificacionesModel registro = new RegistrosModificacionesModel("Eliminó", LocalDateTime.now(), servicioAdmin.obtener(admin), id);
+            RegistrosModificacionesModel registro = new RegistrosModificacionesModel("Eliminó", LocalDateTime.now(), servicioAdmin.obtener(admin), producto);
             servicioRegistrosModificaciones.guardar(registro);
 
         } catch (NumberFormatException e) {
@@ -79,10 +77,10 @@ public class ControladorAdminOpciones {
 
     //************ACTUALIZAR ADMIN*************
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
-    public ModelAndView actualizarProducto(String admin, String id, String url, String nombre, String precio, String categoria, Model modelo) {
+    public ModelAndView actualizarProducto(String admin, String id, String url, String nombre, int precio, String categoria, Model modelo) {
         CategoriaModel categoriaProducto = (CategoriaModel) servicioCategoria.obtener((Long.parseLong(categoria)));
 
-        ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, Integer.parseInt(precio), categoriaProducto, url);
+        ProductoModel producto = new ProductoModel(Long.parseLong(id), nombre, precio, categoriaProducto, url);
         servicioProducto.guardar(producto);
 
         RegistrosModificacionesModel registro = new RegistrosModificacionesModel("Actualizó", LocalDateTime.now(), servicioAdmin.obtener(admin), id);
@@ -120,6 +118,7 @@ public class ControladorAdminOpciones {
 
         modelo.addAttribute("listaAdmin", servicioAdmin.obtener(admin));
         modelo.addAttribute("listaC", servicioCategoria.getAll());
+        modelo.addAttribute("listaHistorial", servicioRegistrosModificaciones.getAll());
 
         return "Admin_Opciones";
 
