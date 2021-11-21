@@ -23,7 +23,11 @@ import com.example.demo.Admin.servicios.ServicioTienda;
 import java.time.LocalDateTime;
 
 /**
- * @author matias
+ * Clase ControladorBoletas
+ * 
+ * 
+ * 
+ * @author Autoservicio
  */
 @Controller
 public class ControladorBoletas {
@@ -144,7 +148,6 @@ public class ControladorBoletas {
             modelo.addAttribute("listaC", servicioCategoria.getAll());
             modelo.addAttribute("listaHistorial", servicioRegistrosModificaciones.getAll());
             modelo.addAttribute("lista", servicioProducto.getAll());
-            
 
             return "Admin_Opciones";
 
