@@ -25,29 +25,41 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Esta clase de tipo controlador se encarga de realizar las acciones propias
- * del perfil de administrador y redireccionar a la vista html correspondiente
+ * del perfil de administrador el la vista Admin_Opciones y redireccionar a la vista html correspondiente
  *
  * @author matias
  */
 @Controller
 public class ControladorAdminOpciones {
 
-    //Importacion de metodos del servicio de Admistrador
+    /**
+     * Importacion de metodos del servicio de Admistrador
+     */
     @Autowired
     private ServicioAdmin servicioAdmin;
-
-    //Importacion de metodos del servicio de Productio    
+    
+    
+    /**
+     * Importacion de metodos del servicio de Producto
+     */        
     @Autowired
     private ServicioProducto servicioProducto;
 
-    //Importacion de metodos del servicio de Categoria
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
     @Autowired
     private ServicioCategoria servicioCategoria;
-
-    //Importacion de metodos del servicio de Carro
+    
+    /**
+     * Importacion de metodos del servicio de Carro
+     */
     @Autowired
     private ServicioCarro servicioCarro;
-    //Importacion de metodos del servicio de Registro de modificaciones
+    /**
+     * Importacion de metodos del servicio de RegistrosModificaciones
+     */
+
     @Autowired
     private ServicioRegistrosModificaciones servicioRegistrosModificaciones;
 
@@ -55,16 +67,14 @@ public class ControladorAdminOpciones {
      * Metodo que se encarga de recibir los datos de un formulario de un
      * producto y agregar un registro con estos a la base de datos
      *
-     * @param admin El parametro admin es una cadena que representa el atributo
-     * usuario que tendra un objeto de la clase Administrador
-     * @param fURL El parametro fURL es una cadena que representa el atributo
-     * URLImagen que tendra un objeto de la clase Producto
-     * @param fnombre El parametro fnombre es una cadena que representa el
-     * atributo nombre que tendra un objeto de la clase Producto
-     * @param fprecio El parametro fprecio es una cadena que representa el
-     * atributo precio que tendra un objeto de la clase Producto
-     * @param categorias El parametro categorias es una cadena que representa el
-     * atributo categorias que tendra un objeto de la clase Producto
+     * @param admin es una cadena que representa el nombre de usuario de un
+     * administrador
+     * @param fURL es una cadena que representa el enlace de una imagen de un
+     * producto
+     * @param fnombre es una cadena que representa el nombre de un producto
+     * @param fprecio es una cadena que representa el precio de un producto
+     * @param categorias es una cadena que representa la categoria de un
+     * producto
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "guardarProducto", method = RequestMethod.POST)
@@ -89,9 +99,9 @@ public class ControladorAdminOpciones {
      * Metodo que se encarga de recibir el un id de un producto para luego
      * eliminarlo de la base de datos
      *
-     * @param producto El parametro producto representa el codigo de un producto
-     * @param admin El parametro admin es una cadena que representa el atributo
-     * usuario que tendra un objeto de la clase Administrador
+     * @param producto representa el codigo de un producto
+     * @param admin es una cadena que representa el nombre de usuario de un
+     * administrador
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "eliminarProducto")
@@ -116,18 +126,14 @@ public class ControladorAdminOpciones {
      * Metodo que se encarga de recibir los datos de un formulario de un
      * producto y actualizar un registro en la base de datos mediante un Id
      *
-     * @param admin El parametro admin es una cadena que representa el atributo
-     * usuario que tendra un objeto de la clase Administrador
-     * @param id El parametro id es una cadena que representa el atributo
-     * idProducto que tendra un objeto de la clase Producto
-     * @param url El parametro url es una cadena que representa el atributo
-     * URLImagen que tendra un objeto de la clase Producto
-     * @param nombre El parametro nombre es una cadena que representa el
-     * atributo nombre que tendra un objeto de la clase Producto
-     * @param precio El parametro precio es una cadena que representa el
-     * atributo precio que tendra un objeto de la clase Producto
-     * @param categoria El parametro categoria es una cadena que representa el
-     * atributo categorias que tendra un objeto de la clase Producto
+     * @param admin es una cadena que representa el nombre de usuario de un
+     * administrador
+     * @param id una cadena que representa el el id de un producto
+     * @param url es una cadena que representa el enlace de una imagen de un
+     * producto
+     * @param nombre es una cadena que representa el nombre de un producto
+     * @param precio es una cadena que representa el precio de un producto
+     * @param categoria es una cadena que representa la categoria de un producto
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "actualizarProducto", method = RequestMethod.POST)
@@ -150,10 +156,9 @@ public class ControladorAdminOpciones {
      * Metodo que se encarga de recibir los datos de un formulario y enviarlos a
      * otro controlador
      *
-     * @param codigo El parametro codigo es una cadena que representa el
-     * atributo idProducto que tendra un objeto de la clase Producto
-     * @param admin El parametro admin es una cadena que representa el atributo
-     * usuario que tendra un objeto de la clase Administrador
+     * @param codigo es una cadena que representa el id de un producto
+     * @param admin es una cadena que representa el nombre de usuario de un
+     * administrador
      * @return Un objeto ModelAndView que contiene los datos del administrador
      */
     @RequestMapping(value = "buscarProducto", method = RequestMethod.POST)
@@ -171,12 +176,11 @@ public class ControladorAdminOpciones {
      * controlador consultaProductos y consultar por un registro existente a la
      * base de datos
      *
-     * @param codigo El parametro codigo es una cadena que representa el
-     * atributo idProducto que tendra un objeto de la clase Administrador
-     * @param admin El parametro admin es una cadena que representa el atributo
-     * usuario que tendra un objeto de la clase Administrador
-     * @param modelo El parametro modelo permite almacenar datos para luego
-     * enviarlos a las vistas HTML
+     * @param codigo es una cadena que representa id de un producto
+     * @param admin es una cadena que representa el nombre de usuario de un
+     * administrador
+     * @param modelo permite almacenar datos para luego enviarlos a las vistas
+     * HTML
      * @return la vista de con las opciones permitidas a un Administrador
      */
     @RequestMapping(value = "Opciones")

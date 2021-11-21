@@ -20,19 +20,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Esta clase de tipo controlador se encarga de realizar las acciones propias
+ * del perfil de administrador en la vista de Cliente_ProductoSeleccionado y
+ * redireccionar a la vista html correspondientes
+ *
+ * @author matias
+ */
 @Controller
 public class ControladorProductoSeleccionado {
 
+    /**
+     * Importacion de metodos del servicio de Admistrador
+     */
     @Autowired
     private ServicioAdmin servicioAdmin;
+
+    /**
+     * Importacion de metodos del servicio de Producto
+     */
     @Autowired
     private ServicioProducto servicioProducto;
+
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
     @Autowired
     private ServicioCategoria servicioCategoria;
+
+    /**
+     * Importacion de metodos del servicio de Carro
+     */
     @Autowired
     private ServicioCarro servicioCarro;
-    
 
+    /**
+     * Metodo que se encarga de calcular el total de la suma de los precios de
+     * los productos contenidos en un carro de compras
+     *
+     * @return El total de la compra
+     */
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -45,12 +72,17 @@ public class ControladorProductoSeleccionado {
 
     }
 
-    @GetMapping("/Cliente_ProductoSeleccionado")
-    String Cliente_ProductoSeleccionado() {
-
-        return "Cliente_ProductoSeleccionado";
-    }
-
+    /**
+     * Este metodo se encarga de agregar un producto al carro de compras
+     *
+     * @param id representa un id de un producto
+     * @param cantidad representa la cantidad de un producto que habra en un
+     * carro
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
+     * @return Se retornara a la vista del producto anteriormente agregardo al
+     * carro
+     */
     @RequestMapping(value = "mostrarProducto/agregarProductoCarro", method = RequestMethod.POST)
     public String agregarProductoCarro(String id, int cantidad, Model modelo) {
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -86,18 +118,40 @@ public class ControladorProductoSeleccionado {
         return "/Cliente_ProductoSeleccionado";
     }
 
+    /**
+     * Este metodo permite eliminar un producto de el carro de compras en la
+     * vista de Cliente_Categorias
+     *
+     * @param id1 representa el id de el producto que sera eliminado del carro
+     * de compras
+     * @param id2 representa el id de del producto mostrador en la vista
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
+     * @return la vista del producto mostrador anteriormente
+     */
     @GetMapping(value = "/eliminarDelCarroProdSelec/{id1}/{id2}")
     public String eliminarDelCarro(@PathVariable String id1, @PathVariable String id2, Model modelo) {
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
         try {
             servicioCarro.eliminar(Long.parseLong(id1));
-           
 
         } catch (NumberFormatException e) {
         }
         return "redirect:/mostrarProducto/" + id2;
     }
 
+    /**
+     * Este metodo se encarga de consultar los datos de un producto a la base de
+     * datos
+     *
+     * @param id representa un id de un producto
+     * @param modelo El parametro modelo permite almacenar datos, a los cuales
+     * se pueden acceder desde los HTML
+     * @return En caso de que se encuentre el producto se retornara a la vista
+     * del producto seleccionado, en caso contrario ratornara a la vista de
+     * producto seleccionado anteriormente
+     *
+     */
     @RequestMapping(value = "/mostrarProducto/mostrarProductoSelec", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {
         ProductoModel producto = (ProductoModel) servicioProducto.obtener(Long.parseLong(id));
@@ -118,6 +172,17 @@ public class ControladorProductoSeleccionado {
 
     }
 
+    /**
+     * Este metodo se encarga de cambiar las cantidades de un producto que se
+     * encuentre en el carro de compras
+     *
+     * @param idProducto representa el id de un producto que se consultara
+     * @param idProdSelec representa el id de del producto mostrado en la vista
+     * @param cantProducto representa la cantidad de dicho producto
+     * @param modelo permite almacenar datos, a los cuales se pueden acceder
+     * desde los HTML
+     * @return vista del producto mostrador anteriormente
+     */
     @RequestMapping(value = "mostrarProducto/cambiarCantidadProdSelec", method = RequestMethod.POST)
     public String cambiarCantidadProducto(int idProducto, int idProdSelec, int cantProducto, Model modelo) {
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -152,6 +217,17 @@ public class ControladorProductoSeleccionado {
         return "/Cliente_ProductoSeleccionado";
     }
 
+    /**
+     * Este metodo se encarga de cambiar las cantidades de un producto que se
+     * encuentre en el carro de compras
+     *
+     * @param idProducto representa el id de un producto que se consultara
+     * @param idProdSelec representa el id de del producto mostrado en la vista
+     * @param cantProducto representa la cantidad de dicho producto
+     * @param modelo permite almacenar datos, a los cuales se pueden acceder
+     * desde los HTML
+     * @return vista del producto mostrador anteriormente
+     */
     @RequestMapping(value = "cambiarCantidadProdSelec", method = RequestMethod.POST)
     public String cambiarCantidadProducto2(int idProducto, int idProdSelec, int cantProducto, Model modelo) {
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -186,6 +262,17 @@ public class ControladorProductoSeleccionado {
         return "/Cliente_ProductoSeleccionado";
     }
 
+    /**
+     * Este metodo permite volver a la vista de productos de la categoria
+     * anteriormente seleccionada, desde la vista de producto un producto
+     * seleccionado
+     *
+     * @param idCateg representa el id de una categoria
+     * @param modelo permite almacenar datos, a los cuales se pueden acceder
+     * desde los HTML
+     * @return la vista de productos, con los productos de la categoria
+     * anteriormente seleccionada
+     */
     @RequestMapping(value = "volverAtrasProdSelec", method = RequestMethod.POST)
     public String volverAtras(int idCateg, Model modelo) {
         ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
@@ -212,6 +299,17 @@ public class ControladorProductoSeleccionado {
         }
     }
 
+    /**
+     * Este metodo permite volver a la vista de productos de la categoria
+     * anteriormente seleccionada, desde la vista de producto un producto
+     * seleccionado
+     *
+     * @param idCateg representa el id de una categoria
+     * @param modelo permite almacenar datos, a los cuales se pueden acceder
+     * desde los HTML
+     * @return la vista de productos, con los productos de la categoria
+     * anteriormente seleccionada
+     */
     @RequestMapping(value = "mostrarProducto/volverAtrasProdSelec", method = RequestMethod.POST)
     public String volverAtras2(int idCateg, Model modelo) {
         ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
