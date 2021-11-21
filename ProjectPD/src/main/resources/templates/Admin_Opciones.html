@@ -32,18 +32,24 @@
                 </div>
                 <div id="sidebar-accordion" class="accordion">
                     <div class="list-group">
-                        <a href="#dashboard-items" data-toggle="collapse" aria-expanded="false"
-                           class="list-group-item list-group-item-action bg-dark text-light">
-                            <i class="fa fa-tachometer mr-3" aria-hidden="true"></i>Historial
-                        </a>
-                        <div class="container d-flex justify-content-center" style="margin: 25px">
+                        <button type="" class="list-group-item list-group-item-action bg-dark text-light" data-toggle="modal" data-target="#modalHistorial" data-whatever="@getbootstrap">Ver historial</button>
+
+
+                        <button class="list-group-item list-group-item-action bg-dark text-light" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Buscar Boleta</button>
+
+
+
+                        <div class="my-2 collapse multi-collapse" id="multiCollapseExample2">
                             <form  method="POST" action="buscarBoleta">
-                                <label class="col-form-label">Nro de Boleta:</label>
-                                <input id="nroBoleta" name="nroBoleta" required="" placeholder="boleta">
-                                <input type="submit" value="Buscar" class="btn btn-primary" style="margin-left: 15px"></th>
-                                <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                                <div class="my-2 input-group">
+                                    <input class="form-control" id="nroBoleta" name="nroBoleta" required="" placeholder="Nro de boleta" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <input type="submit" value="Buscar" class="btn btn-outline-secondary"></th>
+                                    <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                                </div>
                             </form>
                         </div>
+
+
                         <a>
                             <button type="" class="list-group-item list-group-item-action bg-dark text-light" data-toggle="modal" data-target="#modalPerfil" data-whatever="@getbootstrap">Perfil</button>
 
@@ -92,7 +98,7 @@
                                 <label class="col-form-label">ID del producto:</label>
                                 <input id="iD" name="codigo" required="" placeholder="codigo">
                                 <input type="submit" value="Buscar" class="btn btn-primary" style="margin-left: 15px"></th>
-                                <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                                <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
                             </form>
                         </div>
 
@@ -125,7 +131,17 @@
 
                                             <button onclick="PasarValor(this);" id="#exampleModal" th:value="${producto.idProducto}+';'+${producto.URLImagen}+';'+${producto.nombre}+';'+${producto.precio}+';'+${producto.idCateg.getId()}" type="" class="boton btn btn-primary" data-toggle="modal"
                                                     data-target="#exampleModal" data-whatever="@getbootstrap">Editar</button>
-                                            <a class="btn btn-danger"  th:each="admin1: ${listaAdmin}" th:href="@{/eliminar/{id}/{admin}(id=${producto.idProducto},admin=${admin1.usuario})}">Eliminar</a>
+
+
+
+                                            <form  method="POST" action="eliminarProducto">
+                                                <input type="text" hidden th:value="${producto.idProducto}" name="producto">
+                                                <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+
+                                                <input type="submit" value="Eliminar" class="btn btn-danger">
+
+                                            </form>
+
                                         </td>
 
 
@@ -171,7 +187,7 @@
                                         <label for="precioProducto" class="col-form-label">Precio:</label>
                                         <input type="text" class="form-control" id="precioProducto" name="precio">
                                     </div>                      
-                                    <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                                    <input hidden type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
 
 
                                     <div class="form-group">
@@ -223,7 +239,7 @@
                                         </select>
                                     </div>
 
-                                    <input type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
+                                    <input hidden type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
                                     <div class="modal-footer">
 
                                         <input type="submit" value="Agregar" class="btn btn-primary" style="margin-left: 15px">
@@ -260,6 +276,33 @@
                                     </div>
 
                                 </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modalHistorial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Historial de modificaciones</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="barraScroll" style="overflow-y: scroll; height: 448px;">
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr th:each="registro:${listaHistorial}">                                            
+                                        <td th:text="${registro.nombre}+{registro.nombre}+{registro.nombre}"></td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
                             </div>
 
                         </div>

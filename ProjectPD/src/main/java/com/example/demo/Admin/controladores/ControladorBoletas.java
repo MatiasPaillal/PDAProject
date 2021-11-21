@@ -124,6 +124,8 @@ public class ControladorBoletas {
 
         String[] cadenaProductos = partes[0].split(";");
         String[] cadenaCantidad = partes[1].split(";");
+        System.out.println(cadenaCantidad.length);
+        System.out.println(cadenaProductos.length);
         ArrayList<CarroModel> carro = new ArrayList<CarroModel>();
 
         for (int i = 0; i < cadenaProductos.length; i++) {
