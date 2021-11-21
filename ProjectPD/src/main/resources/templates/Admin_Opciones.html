@@ -39,9 +39,9 @@
 
 
 
-                        <div class="my-2 collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="m-2 collapse multi-collapse" id="multiCollapseExample2">
                             <form  method="POST" action="buscarBoleta">
-                                <div class="my-2 input-group">
+                                <div class="input-group">
                                     <input class="form-control" id="nroBoleta" name="nroBoleta" required="" placeholder="Nro de boleta" aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <input type="submit" value="Buscar" class="btn btn-outline-secondary"></th>
                                     <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
@@ -127,21 +127,21 @@
                                         <td th:text="${producto.nombre}"></td>
                                         <td th:text="${producto.precio}"></td>
                                         <td th:text="${producto.idCateg.getCategoria()}"></td>
-                                        <td>
+                                        <td class="row w-75">
+                                            <div class="col-5">
+                                                <button onclick="PasarValor(this);" id="#exampleModal" th:value="${producto.idProducto}+';'+${producto.URLImagen}+';'+${producto.nombre}+';'+${producto.precio}+';'+${producto.idCateg.getId()}" type="" class="boton btn btn-primary" data-toggle="modal"
+                                                        data-target="#exampleModal" data-whatever="@getbootstrap">Editar</button>
+                                            </div>
 
-                                            <button onclick="PasarValor(this);" id="#exampleModal" th:value="${producto.idProducto}+';'+${producto.URLImagen}+';'+${producto.nombre}+';'+${producto.precio}+';'+${producto.idCateg.getId()}" type="" class="boton btn btn-primary" data-toggle="modal"
-                                                    data-target="#exampleModal" data-whatever="@getbootstrap">Editar</button>
+                                            <div class="col-5">
+                                                <form  method="POST" action="eliminarProducto">
+                                                    <input type="text" hidden th:value="${producto.idProducto}" name="producto">
+                                                    <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
 
+                                                    <input type="submit" value="Eliminar" class="btn btn-danger">
 
-
-                                            <form  method="POST" action="eliminarProducto">
-                                                <input type="text" hidden th:value="${producto.idProducto}" name="producto">
-                                                <input type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
-
-                                                <input type="submit" value="Eliminar" class="btn btn-danger">
-
-                                            </form>
-
+                                                </form>
+                                            </div>
                                         </td>
 
 
@@ -177,15 +177,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="URLProducto" class="col-form-label">URL de imagen:</label>
-                                        <input type="text" class="form-control" id="URLProducto" name="url">
+                                        <input type="text" class="form-control" required id="URLProducto" name="url">
                                     </div>
                                     <div class="form-group">
                                         <label for="nombreProducto" class="col-form-label">Nombre:</label>
-                                        <input type="text" class="form-control" id="nombreProducto" name="nombre">
+                                        <input type="text" class="form-control" required id="nombreProducto" name="nombre">
                                     </div>
                                     <div class="form-group">
                                         <label for="precioProducto" class="col-form-label">Precio:</label>
-                                        <input type="text" class="form-control" id="precioProducto" name="precio">
+                                        <input type="number" max="999999999" required class="form-control" id="precioProducto" name="precio">
                                     </div>                      
                                     <input hidden type="text" th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
 
@@ -296,7 +296,9 @@
 
                                     <tbody>
                                         <tr th:each="registro:${listaHistorial}">                                            
-                                        <td th:text="${registro.nombre}+{registro.nombre}+{registro.nombre}"></td>
+                                            <td th:text="${registro.administrador_usuario.getNombre()}+'  '+${registro.modificacion}+'  '+${registro.idProducto}+' en la fecha '+${registro.fechaModificacionFormateada()}">
+
+                                            </td>
 
                                         </tr>
 
