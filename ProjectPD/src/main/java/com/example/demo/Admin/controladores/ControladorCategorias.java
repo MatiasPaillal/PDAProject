@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.example.demo.Admin.controladores;
 
 import com.example.demo.Admin.modelo.CarroModel;
@@ -157,7 +152,6 @@ public class ControladorCategorias {
         }
         return "redirect:/Cliente_Categorias";
     }
-    
 
     @RequestMapping(value = "mostrarProductoCateg", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {

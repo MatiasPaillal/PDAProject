@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.example.demo.Admin.controladores;
 
 import com.example.demo.Admin.modelo.CategoriaModel;
@@ -185,9 +180,10 @@ public class ControladorAdminOpciones {
      * usuario que tendra un objeto de la clase Administrador
      * @param modelo El parametro modelo permite almacenar datos para luego
      * enviarlos a las vistas HTML
-     * @return la vista HTML Admin_Opciones a la cual accede el administrador, ademas de los datos de un
-     * administrador, una lista de productos, una lista de categorias y una
-     * lista con el historial de modificaciones a la base de datos, almacenados en el modelo
+     * @return la vista HTML Admin_Opciones a la cual accede el administrador,
+     * ademas de los datos de un administrador, una lista de productos, una
+     * lista de categorias y una lista con el historial de modificaciones a la
+     * base de datos, almacenados en el modelo
      */
     @RequestMapping(value = "Opciones")
     public String verOpciones(@ModelAttribute("codigo") String codigo, @ModelAttribute("admin") String admin, Model modelo) {
