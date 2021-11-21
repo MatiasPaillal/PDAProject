@@ -3,30 +3,61 @@ package com.example.demo.Admin.modelo;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
+/**
+ * Clase RegistrosModificacionesModel
+ *
+ * Contiene información de cada registro de modificaciones
+ *
+ * @author Autoservicio
+ *
+ */
 @Entity
 @Table(name = "registros_modificaciones")
 public class RegistrosModificacionesModel {
 
+    /**
+     * Id del registro de modificación
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRegistro;
-
+    /**
+     * Tipo de modificación
+     */
     @Column(length = 25, nullable = false)
     private String modificacion;
-
+    /**
+     * Fecha de la modificación
+     */
     @Column(nullable = false)
     private LocalDateTime fechaModificacion;
-
+    /**
+     * Información del administrador
+     */
     @ManyToOne()
     @JoinColumn(nullable = false, referencedColumnName = "usuario")
     private AdministradorModel administrador_usuario;
-
+    /**
+     * Id del producto modificado
+     */
     @Column(nullable = false)
     private String idProducto;
 
+    /**
+     * Constructor por defecto
+     */
     public RegistrosModificacionesModel() {
     }
 
+    /**
+     * Constructor con 4 parametros
+     *
+     * @param modificacion Tipo de modificación
+     * @param fechaModificacion Fecha de la modificación
+     * @param administrador_usuario Objeto de AdministradorModel con la
+     * información del administrador que hizo los cambios
+     * @param idProducto Id del producto modificado
+     */
     public RegistrosModificacionesModel(String modificacion, LocalDateTime fechaModificacion, AdministradorModel administrador_usuario, String idProducto) {
         this.modificacion = modificacion;
         this.fechaModificacion = fechaModificacion;

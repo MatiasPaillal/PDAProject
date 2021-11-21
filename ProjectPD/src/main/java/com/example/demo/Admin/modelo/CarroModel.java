@@ -1,32 +1,54 @@
- 
 package com.example.demo.Admin.modelo;
 
 import javax.persistence.*;
 
+/**
+ * Clase CarroModel
+ *
+ * Contiene información del Carro de compras
+ *
+ * @author Autoservicio
+ *
+ */
 @Entity
 @Table(name = "carro")
 public class CarroModel {
 
+    /**
+     * Id del carro
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCarro;
-
+    /**
+     * Información del producto en el carro
+     */
     @ManyToOne
     @JoinColumn(nullable = false, referencedColumnName = "idProducto")
     private ProductoModel idProductoCarro;
-
+    /**
+     * Cantidad del producto en el carro
+     */
     @Column(nullable = false)
     private Integer cantidad;
 
+    /**
+     * Constructor por defecto
+     */
     public CarroModel() {
     }
-    
 
+    /**
+     * Constructor con 2 parametros
+     *
+     * @param idProductoCarro Objeto de ProductoModel que contiene información
+     * del producto que se agrega al carro
+     * @param cantidad Cantidad del producto que se agrega al carro
+     */
     public CarroModel(ProductoModel idProductoCarro, Integer cantidad) {
         this.idProductoCarro = idProductoCarro;
         this.cantidad = cantidad;
     }
-    
 
     public Long getIdCarro() {
         return idCarro;
@@ -52,5 +74,4 @@ public class CarroModel {
         this.cantidad = cantidad;
     }
 
- 
 }

@@ -1,38 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.example.demo.Admin.modelo;
 
 import javax.persistence.*;
 
 /**
+ * Clase AdministradorModel
  *
- * @author matias
+ *
+ * Contiene información de cada Administrador
+ *
+ * @author Autoservicio
+ *
  */
 @Entity
 @Table(name = "administrador")
 public class AdministradorModel {
 
+    /**
+     * Usuario del administrador
+     */
     @Id
     @Column(length = 15)
 
     private String usuario;
-
+    /**
+     * Contraseña del administrador
+     */
     @Column(length = 20, nullable = false)
     private String password;
-
+    /**
+     * Nombre del administrador
+     */
     @Column(length = 80, nullable = false)
     private String nombre;
 
+    /**
+     * Constructor con 3 parametros
+     *
+     * @param usuario Usuario del administrador
+     * @param password Contraseña del administrador
+     * @param nombre Nombre del administrador
+     */
     public AdministradorModel(String usuario, String password, String nombre) {
-
         this.usuario = usuario;
         this.password = password;
         this.nombre = nombre;
     }
 
+    /**
+     * Constructor por defecto
+     */
     public AdministradorModel() {
     }
 
