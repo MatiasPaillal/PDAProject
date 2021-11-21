@@ -34,6 +34,12 @@ public class ControladorCategorias {
     @Autowired
     private ServicioCarro servicioCarro;
 
+    /**
+     * Metodo que se encarga de calcular el total de la suma de los precios de
+     * los productos contenidos en un carro de compras
+     *
+     * @return El total de la compra
+     */
     public ArrayList<Integer> generarTotal() {
         Integer total = 0;
         ArrayList<CarroModel> carros = (ArrayList<CarroModel>) servicioCarro.getAll();
@@ -46,6 +52,17 @@ public class ControladorCategorias {
 
     }
 
+    /**
+     * Metodo el cual se encarga de redireccionar a la vista del cliente de
+     * categorias
+     *
+     * @param modelo El parametro modelo permite almacenar datos para luego
+     * enviarlos a las vistas HTML
+     * @return la vista HTML Cliente_Categorias a la cual accede el cliente,
+     * ademas de los datos de una lista de categorias, y una lista con el
+     * contenido de un carro de compras y su total. Datos los cuales estan
+     * almacenados en el modelo
+     */
     @GetMapping("/Cliente_Categorias")
     String Cliente_Categorias(Model modelo) {
 
@@ -56,7 +73,19 @@ public class ControladorCategorias {
         return "Cliente_Categorias";
     }
 
-    //---------------------------------------------------
+    /**
+     * Metodo el cual se encarga redireccionar a una vista con todos los
+     * productos de una categoria en caso de que esta contenga productos
+     *
+     * @param idCateg Este parametro representa el atributo categoria de un
+     * objeto de la clase Producto
+     * @param modelo El parametro modelo permite almacenar datos para luego
+     * enviarlos a las vistas HTML
+     * @return la vista HTML Cliente_Productos o Cliente_Categorias, a la cual
+     * accede el cliente. Ademas de los datos de una lista de categorias, y una
+     * lista con el contenido de un carro de compras y su total. Datos los
+     * cuales estan almacenados en el modelo
+     */
     @RequestMapping(value = "mostrarProductosPorCategoria", method = RequestMethod.POST)
     public String mostrarProductosCategoria(String idCateg, Model modelo) {
         ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
@@ -111,8 +140,16 @@ public class ControladorCategorias {
 
     }*/
 
+    /**
+     * Este metodo permite eliminar un producto de el carro de compras en la
+     * vista de Cliente_Categorias
+     *
+     * @param id Este parametro representa el id de el producto que sera
+     * eliminado del carro de compras
+     * @return la vista de Cliente_Categorias a la cual accede el cliente
+     */
     @GetMapping(value = "/eliminarDelCarroCategoria/{id}")
-    public String eliminarDelCarro(@PathVariable String id, Model modelo) {
+    public String eliminarDelCarro(@PathVariable String id) {
 
         try {
             servicioCarro.eliminar(Long.parseLong(id));
@@ -120,6 +157,7 @@ public class ControladorCategorias {
         }
         return "redirect:/Cliente_Categorias";
     }
+    
 
     @RequestMapping(value = "mostrarProductoCateg", method = RequestMethod.POST)
     public String mostrarProductoEncontrado(String id, Model modelo) {

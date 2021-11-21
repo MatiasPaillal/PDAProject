@@ -91,7 +91,7 @@ public class ControladorProductoSeleccionado {
         ArrayList<ProductoModel> productos = new ArrayList<ProductoModel>();
         try {
             servicioCarro.eliminar(Long.parseLong(id1));
-            System.out.println(id2);
+           
 
         } catch (NumberFormatException e) {
         }
