@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Esta clase de tipo controlador se encarga de realizar las acciones propias
  * del perfil de administrador el la vista Admin_Opciones y redireccionar a la vista html correspondiente
  *
- * @author matias
+ * @author Autoservicio
  */
 @Controller
 public class ControladorAdminOpciones {
