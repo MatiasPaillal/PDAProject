@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * del perfil de administrador en la vista de Cliente_ProductoSeleccionado y
  * redireccionar a la vista html correspondientes
  *
- * @author matias
+ * @author Autoservicio
  */
 @Controller
 public class ControladorProductoSeleccionado {

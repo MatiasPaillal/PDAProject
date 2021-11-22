@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.example.demo.Admin.Commons;
 
 import java.io.Serializable;
@@ -11,17 +7,19 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
- * @author matias
+ * Interfaz de tipo servicio que sera implementada en los demas servicios
+ * @author Autoservicio
  */
 @Service
 public interface ServicioGen<T, ID extends Serializable> {
+    
     T guardar(T entity);
 
     void eliminar(ID id);
+    
     void vaciarTabla();
 
     T obtener(ID id);
-
 
     List<T> getAll();
 
