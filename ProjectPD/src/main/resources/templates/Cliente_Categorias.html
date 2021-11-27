@@ -24,14 +24,26 @@ and open the template in the editor.
                     background: rgb(6, 150, 160);
                     border-radius: 5px;
                 }
+
+                .abs-center {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                header {
+                    background: linear-gradient(to right,#00b0ff 0%,#d500f9 100%);
+                }
+
+
             </style>
     </head>
 
     <body style="background-image: url('../imagenes/Fondo.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-attachment: fixed; margin-top: 5rem">
 
-        <header class="position-fixed top-0 start-0 end-0">
+        <header class="position-fixed top-0 start-0 end-0 py-1">
             <div class="navbar-left">
-                <nav class="navbar navbar-inverse navbar-static-top navbar-dark bg-dark" role="navigation">
+                <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
                     <div class="container-fluid justify-content-center">
                         <a href="/" class="me-4">
                             <img src="../imagenes/arrow-left-circle.svg" width="35" style="filter: invert(1.5)" />
@@ -58,23 +70,24 @@ and open the template in the editor.
         </header>
 
 
-        <div class="container bg-light pb-2">
-            <div class="d-flex justify-content-center mt-3 py-2">
+        <div class="container bg-light mb-2 px-5 pb-4 pt-2">
+            
+            <div class="d-flex justify-content-center my-3 py-2">
                 <h2 class="display-5 fs-3" style="text-align: center">Categorias</h2>
             </div>
 
-            <div class="d-flex offset-1">
+            <div class="abs-center">
 
                 <div th:if="${!listaC.isEmpty()}" class="row row-cols-4">
-                    <div class="col mb-2 col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3" th:each="categorias: ${listaC}">
+                    <div class="col mb-2 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center" th:each="categorias: ${listaC}">
 
-                        <div class="card border-info position-static" style="width: 15rem">
+                        <div class="card border-info position-static" >
                             <!-- mostrarProductosPorCategoria -->
                             <form action="mostrarProductosPorCategoria" method="POST">
                                 <input name="idCateg" type="text" th:value="${categorias.id}" hidden="true"></input>
 
-                                <button type="submit" style="border: none">
-                                    <img th:src="@{${categorias.urlImagenC}}" class="card-img-top max mt-1" alt="No se encuentra la imagen"/>
+                                <button type="submit" style="border: none; background: none">
+                                    <img th:src="@{${categorias.urlImagenC}}" class="card-img-top mt-1 img-fluid" alt="No se encuentra la imagen" style="height: 150px; width: 100%"/>
                                     <div class="card-body">
                                         <h4 class="card-title display-6 text-center fs-3" th:text="${categorias.categoria}"></h4>
                                     </div>
