@@ -63,11 +63,11 @@
                     </div>
 
                     <div class="col">
-                        
+
                         <div class="d-flex flex-column">
-                            
+
                             <div class="mb-5">
-                                
+
                                 <h6 class="display-6 fs-6" th:text="'Categoría > ' + ${producto.idCateg.getCategoria()} + ' • Código del producto: ' + ${producto.idProducto}"></h6>
                                 <h1 style="overflow: hidden; text-overflow: ellipsis;" class="display-6 fs-1 py-1" th:text="${producto.nombre}"></h1>
 
@@ -92,21 +92,21 @@
                                         <input name="id" type="hidden" id="idProductoSeleccionado" th:value="${producto.idProducto}"></input>
 
                                         <div class="row ms-2">
-                                            
+
                                             <label for="cantidadProductoSeleccionado" class="col-5 col-form-label">Cantidad:</label>
-                                            
+
                                             <div class="col">
                                                 <input name="cantidad" type="number" min="1" value="1" style="width: 65px; height: 45px" class="form-control" id="cantidadProductoSeleccionado"></input>
                                             </div>
-                                            
+
                                         </div>
 
                                     </form>
 
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
 
 
@@ -195,12 +195,14 @@
 
                 </div>
 
+
+
                 <div class="row">
 
                     <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
 
-                    <div class="col">
-                        <input th:if="${!listaTotal.isEmpty()}" th:value="listaTotal[0]" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
+                    <div  class="col">
+                        <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                     </div>
 
                 </div>

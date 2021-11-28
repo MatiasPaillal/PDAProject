@@ -128,47 +128,45 @@ and open the template in the editor.
             
             <div class="offcanvas offcanvas-end mt-6 shadow" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
-                <div class="offcanvas-header">
-                    <h2 class="bi bi-cart2"></h2>
-                    <h5 class="offcanvas-title display-1 fs-3" id="offcanvasTitulo">Carrito</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
+            <div class="offcanvas-header">
+                <h2 class="bi bi-cart2"></h2>
+                <h5 class="offcanvas-title display-1 fs-3" id="offcanvasTitulo">Carrito</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
 
-                <div class="offcanvas-body">
+            <div class="offcanvas-body">
 
-                    <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
-                        <!--Contenido del Carrito (Producto)-->
-                        <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
+                <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
+                    <!--Contenido del Carrito (Producto)-->
+                    <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
 
-                            <div class="row g-0 d-inline-flex">
+                        <div class="row g-0 d-inline-flex">
 
-                                <div class="col-md-8">
+                            <div class="col-md-8">
 
-                                    <div class="card-body">
+                                <div class="card-body">
 
-                                        <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
-                                        <h1 class="display-6 fs-6" th:text="${productos.idProductoCarro.getPrecio()}"></h1>
+                                    <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
+                                    <h1 class="display-6 fs-6" >$ [[${#numbers.formatInteger(productos.idProductoCarro.getPrecio(),3,'POINT')}]]</h1>
 
-                                    </div>
+                                </div>
 
-                                    <div class="card-footer">
+                                <div class="card-footer">
 
-                                        <div class="row justify-content-md-start ">
-                                            <div class="col-4 ">
+                                    <div class="row justify-content-md-start ">
+                                        <div class="col-4 ">
 
-                                                <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroProducto/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
+                                            <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroProducto/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
 
-                                            </div>
+                                        </div>
 
-                                            <div class="col-4">
+                                        <div class="col-4">
 
-                                                <form action="cambiarCantidadProd" method="POST" id="cambiosCantidadProd" class="formCambioCant">
-                                                    <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
-                                                    <input type="number" th:value="${listaP[0].idCateg.getId()}" hidden="true" name="idCateg"></input>
-                                                    <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
-                                                </form>
-
-                                            </div>
+                                            <form action="cambiarCantidadProd" method="POST" id="cambiosCantidadProd" class="formCambioCant">
+                                                <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
+                                                <input type="number" th:value="${listaP[0].idCateg.getId()}" hidden="true" name="idCateg"></input>
+                                                <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
+                                            </form>
 
                                         </div>
 
@@ -176,11 +174,11 @@ and open the template in the editor.
 
                                 </div>
 
-                                <div class="col-md-4">
+                            </div>
 
-                                    <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+                            <div class="col-md-4">
 
-                                </div>
+                                <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
 
                             </div>
 
@@ -190,31 +188,34 @@ and open the template in the editor.
 
                 </div>
 
-                <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
+            </div>
 
-                    <div class="">
+            <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
 
-                        <form action="realizarCompra" method="POST">
-                            <button type="submit" class="btn btn-success">
-                                <h1 class="display-6 fs-5">Realizar Compra</h1>
-                            </button>
-                        </form>
+                <div class="">
 
-                    </div>
+                    <form action="realizarCompra" method="POST">
+                        <button type="submit" class="btn btn-success">
+                            <h1 class="display-6 fs-5">Realizar Compra</h1>
+                        </button>
+                    </form>
 
-                    <div class="row">
+                </div>
 
-                        <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
 
-                        <div  class="col">
-                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}"   id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
-                        </div>
 
+                <div class="row">
+
+                    <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
+
+                    <div  class="col">
+                        <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                     </div>
 
                 </div>
 
             </div>
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
