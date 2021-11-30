@@ -98,23 +98,24 @@ and open the template in the editor.
 
             <div class="offcanvas offcanvas-end mt-6 shadow" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 
-                <div class="offcanvas-header">
-                    <h2 class="bi bi-cart2"></h2>
-                    <h5 class="offcanvas-title display-1 fs-3" id="offcanvasTitulo">Carrito</h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
+            <div class="offcanvas-header">
+                <h2 class="bi bi-cart2"></h2>
+                <h5 class="offcanvas-title display-1 fs-3" id="offcanvasTitulo">Carrito</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
 
-                <div class="offcanvas-body">
+            <div class="offcanvas-body">
 
-                    <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
-                        <!--Contenido del Carrito (Producto)-->
-                        <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
+                <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
+                    <!--Contenido del Carrito (Producto)-->
+                    <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
 
-                            <div class="row g-0 d-inline-flex">
+                        <div class="row g-0 d-inline-flex">
 
-                                <div class="col-md-8">
+                            <div class="col-md-8">
 
-                                    <div class="card-body">
+                                <div class="card-body">
+
 
                                         <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
                                         <h1 class="display-6 fs-6" >$ [[${#numbers.formatInteger(productos.idProductoCarro.getPrecio(),3,'POINT')}]]</h1>
@@ -128,7 +129,8 @@ and open the template in the editor.
 
                                                 <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroProducto/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
 
-                                            </div>
+
+                                        <div class="col-4">
 
                                             <div class="col-4">
 
@@ -139,17 +141,18 @@ and open the template in the editor.
 
                                             </div>
 
+
                                         </div>
 
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-4">
+                            </div>
 
-                                    <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+                            <div class="col-md-4">
 
-                                </div>
+                                <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
 
                             </div>
 
@@ -159,7 +162,7 @@ and open the template in the editor.
 
                 </div>
 
-                <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
+            </div>
 
                     <div class="">
 
@@ -181,6 +184,8 @@ and open the template in the editor.
                             <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                         </div>
 
+                    <div  class="col">
+                        <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
                     </div>
 
                 </div>
