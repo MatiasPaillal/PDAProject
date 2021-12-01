@@ -16,13 +16,34 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
         <style>
+            body::-webkit-scrollbar {
+                background: #2AAD8F;
+                width: 12px;
+            }
+
+            body::-webkit-scrollbar-thumb {
+                background: #0e8166;
+                border-radius: 4rem;
+                border-right: 2px solid #2AAD8F;
+            }
+
+            body::-webkit-scrollbar-thumb:hover {
+                background: #196453;
+                box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+            }
+
             .container ::-webkit-scrollbar {
-                width: 7px;
+                width: 10px;
             }
 
             .container ::-webkit-scrollbar-thumb {
-                background: rgb(6, 150, 160);
-                border-radius: 5px;
+                background: #558bff;
+                border-radius: 4rem;
+                border-right: 2px solid white;
+            }
+
+            .container ::-webkit-scrollbar-thumb:hover {
+                background: #2c6fff;
             }
         </style>
 
