@@ -95,7 +95,7 @@
             <div class="content">
                 <nav class="navbar navbar-expand-lg">
                     <div class=" container-fluid d-flex align-items-center">
-                        <div>
+                        <div class="ms-3">
                             <button class="navbar-toggler d-block" type="button" id="navToggle">
                                 <span class="navbar-toggler-icon" onclick="openNav()">&#9776;</span>
                             </button>
@@ -104,7 +104,7 @@
                         <div class="col-8">
                             <form METHOD="POST" action="buscarProducto" class="d-flex">
 
-                                <input class="form-control" id="iD" name="codigo" required="" placeholder="id del producto">
+                                <input class="form-control" id="iD" name="codigo" required="" placeholder="ID del producto">
                                 <input class="form-control" type="text" hidden th:each="admin: ${listaAdmin}" th:value="${admin.usuario}" name="admin">
                                 <button type="submit" class="btn ms-3">
                                     <a  title="Buscar">
@@ -122,7 +122,7 @@
                         </div>
 
                         <div class="me-2">
-                            <a style="color:white" class="navbar-brand" th:each="admin: ${listaAdmin}" th:text="Bienvenido+'  '+${admin.nombre}"></a>
+                            <a style="color:white; font-family:'Raleway'" class="navbar-brand" th:each="admin: ${listaAdmin}" th:text="'Bienvenido(a)'+'  '+${admin.nombre}"></a>
                         </div>
 
 
@@ -254,7 +254,8 @@
                                 <label for="password" class="col-form-label">Precio</label>
                                 <input type="number" class="form-control" name="fprecio">
                             </div>
-                            <div class="form-group mt-3">
+                            <div class="form-group">
+                                <label for="categoriaProducto" class="col-form-label">Categoria:</label>
                                 <select class="form-control form-control-lg" id="categorias" name="categorias" size="1" style="padding: 3px 15px" required>
                                     <option value="">Seleccionar Categoría</option>
                                     <option th:each="categoria : ${listaC}" th:value="${categoria.id}" th:text="${categoria.categoria}"></option>

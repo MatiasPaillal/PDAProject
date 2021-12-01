@@ -3,6 +3,7 @@ package com.example.demo.Admin.controladores;
 import com.example.demo.Admin.modelo.CarroModel;
 import com.example.demo.Admin.modelo.ProductoModel;
 import com.example.demo.Admin.servicios.ServicioCarro;
+import com.example.demo.Admin.servicios.ServicioCategoria;
 import com.example.demo.Admin.servicios.ServicioProducto;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,14 @@ public class ControladorProductos {
     private ServicioProducto servicioProducto;
     /**
      * Importacion de metodos del servicio de Carro
-     */
+     */    
     @Autowired
     private ServicioCarro servicioCarro;
+    /**
+     * Importacion de metodos del servicio de Categoria
+     */
+    @Autowired
+    private ServicioCategoria servicioCategoria;
 
     /**
      * Metodo que calcula el total de la compra
@@ -114,22 +120,67 @@ public class ControladorProductos {
 
     /**
      * Metodo que se encarga de eliminar un producto del carro de compras con el
-     * id del producto que se manda. Luego redirecciona a la vista HTML
+     * id del producto que se manda.Luego redirecciona a la vista HTML
      * Cliente_Productos
      *
-     * @param id Id del producto que se quiere eliminar del carro de compras
+     * @param idProd Id del producto que se quiere eliminar del carro de compras
+     * @param idCateg Id de la categoria de los productos
      * @param modelo Permite almacenar datos, a los cuales se pueden acceder
      * desde los HTML
      * @return String con el nombre de la vista HTML a donde se redireccionará
      */
-    @GetMapping(value = "/eliminarDelCarroProducto/{id}")
-    public String eliminarDelCarro(@PathVariable String id, Model modelo) {
+    @GetMapping(value = "/eliminarDelCarroProducto/{idProd}/{idCateg}")
+    public String eliminarDelCarro(@PathVariable String idProd, @PathVariable String idCateg, Model modelo) {
 
         try {
-            servicioCarro.eliminar(Long.parseLong(id));
+            servicioCarro.eliminar(Long.parseLong(idProd));
+
         } catch (NumberFormatException e) {
         }
-        return "redirect:/Cliente_Productos";
+        return "redirect:/mostrarProdCateg/" + idCateg;
+
+    }
+
+    /**
+     * Metodo encargado de redirigir a la misma pagina luego de eliminar un
+     * producto del carro en la vista de productos
+     *
+     * @param idCateg id de la categoria de los productos
+     * @param modelo Permite almacenar datos, a los cuales se pueden acceder
+     * desde los HTML
+     * @return String con el nombre de la vista HTML a donde se redireccionará
+     */
+    @GetMapping(value = "/mostrarProdCateg/{idCateg}")
+    public String mostrarProdCateg(@PathVariable String idCateg, Model modelo) {
+        ArrayList<ProductoModel> productos = (ArrayList<ProductoModel>) servicioProducto.getAll();
+        ArrayList<ProductoModel> productosCateg = new ArrayList<>();
+
+        if (!productos.isEmpty()) {
+
+            for (int i = 0; i < productos.size(); i++) {
+                if ((productos.get(i).getIdCateg().getId() == Long.parseLong(idCateg))) {
+                    productosCateg.add(productos.get(i));
+                }
+            }
+
+            if (productosCateg.isEmpty()) {
+                modelo.addAttribute("listaC", servicioCategoria.getAll());
+                modelo.addAttribute("listaCarro", servicioCarro.getAll());
+                modelo.addAttribute("listaTotal", generarTotal());
+                return "Cliente_Categorias";
+            }
+
+            modelo.addAttribute("listaP", productosCateg);
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Productos";
+
+        } else {
+            modelo.addAttribute("listaC", servicioCategoria.getAll());
+            modelo.addAttribute("listaCarro", servicioCarro.getAll());
+            modelo.addAttribute("listaTotal", generarTotal());
+            return "Cliente_Categorias";
+        }
     }
 
     /**
