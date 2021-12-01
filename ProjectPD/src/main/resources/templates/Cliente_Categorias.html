@@ -116,7 +116,6 @@ and open the template in the editor.
 
                                     <div class="card-body">
 
-
                                         <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
                                         <h1 class="display-6 fs-6" >$ [[${#numbers.formatInteger(productos.idProductoCarro.getPrecio(),3,'POINT')}]]</h1>
 
@@ -129,20 +128,14 @@ and open the template in the editor.
 
                                                 <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroProducto/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
 
+                                            </div>
 
-                                                <div class="col-4">
+                                            <div class="col-4">
 
-                                                    <div class="col-4">
-
-                                                        <form action="cambiarCantidadProd" method="POST" id="cambiosCantidadProd" class="formCambioCant">
-                                                            <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
-                                                            <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
-                                                        </form>
-
-                                                    </div>
-
-
-                                                </div>
+                                                <form action="cambiarCantidadCateg" method="POST" id="cambiosCantidadProd" class="formCambioCant">
+                                                    <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
+                                                    <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
+                                                </form>
 
                                             </div>
 
@@ -150,11 +143,11 @@ and open the template in the editor.
 
                                     </div>
 
-                                    <div class="col-md-4">
+                                </div>
 
-                                        <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+                                <div class="col-md-4">
 
-                                    </div>
+                                    <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
 
                                 </div>
 
@@ -163,6 +156,10 @@ and open the template in the editor.
                         </div>
 
                     </div>
+
+                </div>
+
+                <div class="d-inline-flex justify-content-evenly offcanvas-footer p-2">
 
                     <div class="">
 
@@ -176,16 +173,11 @@ and open the template in the editor.
 
 
 
-                    <div class="row">
+                    <div class="row align-items-center">
 
-                        <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
-
-                        <div  class="col">
-                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
-                        </div>
-
-                        <div  class="col">
-                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
+                        <div class="col input-group">
+                            <span class="form-control">Total: $</span>
+                            <span th:if="${!listaTotal.isEmpty()}" class="input-group-text" id="totalCarro">[[${#numbers.formatInteger(listaTotal[0],3,'POINT')}]]</span>
                         </div>
 
                     </div>
@@ -193,6 +185,7 @@ and open the template in the editor.
                 </div>
 
             </div>
+
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
