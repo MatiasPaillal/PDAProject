@@ -132,7 +132,7 @@ and open the template in the editor.
 
                                             <div class="col-4">
 
-                                                <form action="cambiarCantidadProd" method="POST" id="cambiosCantidadProd" class="formCambioCant">
+                                                <form action="cambiarCantidadCateg" method="POST" id="cambiosCantidadProd" class="formCambioCant">
                                                     <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
                                                     <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
                                                 </form>
@@ -159,7 +159,7 @@ and open the template in the editor.
 
                 </div>
 
-                <div class="d-inline-flex justify-content-between offcanvas-footer p-2">
+                <div class="d-inline-flex justify-content-evenly offcanvas-footer p-2">
 
                     <div class="">
 
@@ -173,12 +173,11 @@ and open the template in the editor.
 
 
 
-                    <div class="row">
+                    <div class="row align-items-center">
 
-                        <label for="totalCarro" class="col-auto col-form-label display-1">Total: $</label>
-
-                        <div  class="col">
-                            <input th:if="${!listaTotal.isEmpty()}" th:value="${listaTotal[0]}" id="totalCarro" type="number" value="" class="form-control" style="width:120px" disabled>
+                        <div class="col input-group">
+                            <span class="form-control">Total: $</span>
+                            <span th:if="${!listaTotal.isEmpty()}" class="input-group-text" id="totalCarro">[[${#numbers.formatInteger(listaTotal[0],3,'POINT')}]]</span>
                         </div>
 
                     </div>
