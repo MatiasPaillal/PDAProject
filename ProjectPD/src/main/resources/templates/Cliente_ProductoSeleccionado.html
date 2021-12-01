@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+
+<html lang="es-CL " xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></link>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css"></link>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+        <style>
+            .container ::-webkit-scrollbar {
+                width: 7px;
+            }
+
+            .container ::-webkit-scrollbar-thumb {
+                background: rgb(6, 150, 160);
+                border-radius: 5px;
+            }
+        </style>
+
+    </head>
+
+    <body class="bg-body bg-white" style="margin-top: 5rem">
+
+        <header class="position-fixed top-0 start-0 end-0 shadow">
+
+            <div class="navbar-left">
+
+                <nav class="navbar navbar-inverse navbar-static-top navbar-light" style="background-color: #2AAD8F; padding-bottom: 10px; padding-top: 10px" role="navigation">
+
+                    <div class="container-fluid justify-content-center">
+
+                        <form action="volverAtrasProdSelec" method="POST">
+                            <input type="number" hidden th:value="${listaP[0].idCateg.getId()}" name="idCateg"></input>
+                            <button type="submit" class="me-4" style="background: none; border: none">
+                                <img src="../imagenes/arrow-left-circle.svg" width="35" style="filter: invert(1.5)" />
+                            </button>
+
+                        </form>
+
+                        <form method="POST" action="mostrarProductoSelec" class="d-flex col-8">
+                            <input type="number" class="form-control me-2 col shadow" placeholder="Buscar producto" aria-label="Buscar producto" id="txtBusqueda" name="id" required=""></input>
+
+                            <button type="submit" class="btn ml-2">
+                                <a href="/Cliente_Productos" title="Buscar">
+                                    <img src="../imagenes/search.svg" width="25" style="filter: invert(1.5)"></img>
+                                </a>
+                            </button>
+
+                        </form>
+
+                        <a class="btn ms-1 btn-outline-light " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                            <i class="bi bi-cart2"></i>
+                        </a>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="container w-75 shadow-lg rounded my-5 py-5" style="background-color: #F8F8F8;">
+
+            <div class="d-flex justify-content-center" th:if="${!listaP.isEmpty()}">
+
+                <div class="row" th:each="producto:${listaP}">
+
+                    <div class="col me-5" style="max-width: 450px">
+
+                        <img th:src="@{${producto.URLImagen}}" class="img-fluid rounded p-3 shadow-lg" alt="" />
+
+                    </div>
+
+                    <div class="col">
+
+                        <div class="d-flex flex-column">
+
+                            <div class="mb-5">
+
+                                <h6 class="display-6 fs-6" th:text="'Categoría > ' + ${producto.idCateg.getCategoria()} + ' • Código del producto: ' + ${producto.idProducto}"></h6>
+                                <h1 style="overflow: hidden; text-overflow: ellipsis;" class="display-6 fs-1 py-1" th:text="${producto.nombre}"></h1>
+
+                                <label for="precioProd" class="form-label">Precio</label>
+
+                                <h3 id="precioProd" class="display-6 fs-3">$ [[${#numbers.formatInteger(producto.precio,3,'POINT')}]]</h3>
+
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+
+                                <div class="">
+                                    <button class="btn btn-success" onclick="agregarProducto()">
+                                        <h1 class="display-6 fs-5">Agregar al Carro</h1>
+                                    </button>
+                                </div>
+
+                                <div class="">
+
+                                    <form method="POST" action="agregarProductoCarro" class="form-floating" id="formularioAgregarAlCarro">
+
+                                        <input name="id" type="hidden" id="idProductoSeleccionado" th:value="${producto.idProducto}"></input>
+
+                                        <div class="row ms-2">
+
+                                            <label for="cantidadProductoSeleccionado" class="col-5 col-form-label">Cantidad:</label>
+
+                                            <div class="col">
+                                                <input name="cantidad" type="number" min="1" value="1" style="width: 65px; height: 45px" class="form-control" id="cantidadProductoSeleccionado"></input>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="offcanvas offcanvas-end mt-6 shadow" tabindex="-1" data-bs-scroll="true" data-bs-backdrop="false" data-bs-keyboard="true" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+                <div class="offcanvas-header">
+                    <h2 class="bi bi-cart2"></h2>
+                    <h5 class="offcanvas-title display-1 fs-3" id="offcanvasTitulo">Carrito</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+
+                <div class="offcanvas-body">
+
+                    <div id="carro-compras" th:if="${!listaCarro.isEmpty()}">
+                        <!--Contenido del Carrito (Producto)-->
+                        <div th:each="productos :${listaCarro}" class="card p-2 row mb-4" style="max-width: 540px;">
+
+                            <div class="row g-0 d-inline-flex">
+
+                                <div class="col-md-8">
+
+                                    <div class="card-body">
+
+                                        <h1 class="display-6 fs-5 card-title " th:text="${productos.idProductoCarro.getNombre()}"></h1>
+                                        <h1 class="display-6 fs-6" >$ [[${#numbers.formatInteger(productos.idProductoCarro.getPrecio(),3,'POINT')}]]</h1>
+
+                                    </div>
+
+                                    <div class="card-footer">
+
+                                        <div class="row justify-content-md-start ">
+
+                                            <div class="col-4 ">
+
+                                                <a class="btn btn-outline-danger" th:href="@{/eliminarDelCarroProducto/{id}(id=${productos.idCarro})}"><i class="bi bi-trash"></i></a>
+
+                                            </div>
+
+                                            <div class="col-4">
+
+                                                <form action="cambiarCantidadProdSelec" method="POST" id="cambiosCantidadProd" class="formCambioCant">
+                                                    <input type="number" th:value="${productos.idProductoCarro.getIdProducto()}" hidden="true" name="idProducto"></input>
+                                                    <input type="number" th:value="${listaP[0].idProducto}" hidden="true" name="idProdSelec"></input>
+                                                    <input type="number" min="1" th:value="${productos.cantidad}" style="width: 60px;" class="form-control" name="cantProducto" id="inputCantidad" ></input>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <img class="img-fluid rounded-end" th:src="@{${productos.idProductoCarro.getURLImagen()}}" alt=" " />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="d-inline-flex justify-content-evenly offcanvas-footer p-2">
+
+                    <div class="">
+
+                        <form action="realizarCompra" method="POST">
+                            <button type="submit" class="btn btn-success">
+                                <h1 class="display-6 fs-5">Realizar Compra</h1>
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <div class="row align-items-center">
+
+                        <div class="col input-group">
+                            <span class="form-control">Total: $</span>
+                            <span th:if="${!listaTotal.isEmpty()}" class="input-group-text" id="totalCarro">[[${#numbers.formatInteger(listaTotal[0],3,'POINT')}]]</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            function agregarProducto() {
+                document.getElementById("formularioAgregarAlCarro").submit();
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p " crossorigin="anonymous "></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
+        <script>
+            $('[name="cantProducto"]').each(function () {
+                var elem = $(this);
+
+                // Save current value of element
+                elem.data('oldVal', elem.val());
+
+                // Look for changes in the value
+                elem.bind("propertychange change click keyup input paste", function (event) {
+                    // If value has changed...
+                    if (elem.data('oldVal') != elem.val()) {
+                        // Updated stored value
+                        elem.data('oldVal', elem.val());
+                        console.log("AQUI")
+                        // Do action
+                        elem.closest('.formCambioCant').submit();
+                    }
+                });
+            });
+        </script>
+    </body>
+
+</html>
